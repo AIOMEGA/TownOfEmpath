@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  AmongUs: AmongUs
+
+jobs:
+  release:
+    name: Release
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout AmongUsBepInEx
+        uses: actions/checkout@v3
+        with:
+          repository: JuliusKreutz/AmongUsBepInEx
+          path: ${{ env.AmongUs }}
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+
+      - name: Build
+        run: dotnet build TownOfHost.csproj
+
+      - name: Download BepInEx wrapper
+        run: curl https://builds.bepinex.dev/projects/bepinex_be/577/BepInEx_UnityIL2CPP_x86_ec79ad0_6.0.0-be.577.zip -o BepInExWrapper.zip 
+
+      - name: Unzip BepInEx wrapper
+        run: 7z x BepInExWrapper.zip -oTownOfEmpath/
+
+      - name: Move dll to plugins folder
+        run: |
+          mkdir TownOfEmpath/BepInEx/plugins/
+          mv AmongUs/BepInEx/plugins/*.dll TownOfEmpath/BepInEx/plugins/
+
+      - name: Zip folder
+        run: 7z a TownOfEmpath-${{ github.ref_name }}.zip TownOfEmpath/
+      
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with: 
+          files: TownOfEmpath-${{ github.ref_name }}.zip
