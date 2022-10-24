@@ -134,7 +134,7 @@ For example: `welcome:This room is using TownOfHost.`
 | [Sniper](#Sniper)                   | [SabotageMaster](#SabotageMaster) | [Opportunist](#Opportunist)       |           |
 | [TimeThief](#TimeThief)             | [Seer](#Seer)                     | [Terrorist](#Terrorist)           |           |
 | [Vampire](#Vampire)                 | [Sheriff](#Sheriff)               | [SchrodingerCat](#SchrodingerCat) |           |
-| [Warlock](#Warlock)                 | [Snitch](#Snitch)                 | [Outlaw](#Outlaw)                 |           |
+| [Warlock](#Warlock)                 | [Snitch](#Snitch)                 | [Outlaw](#Outlaw-new)             |           |
 | [Witch](#Witch)                     | [SpeedBooster](#SpeedBooster)     |                                   |           |
 | [Mafia](#Mafia)                     | [Trapper](#Trapper)               |                                   |           |
 | [Madmate](#Madmate)                 |                                   |                                   |           |
