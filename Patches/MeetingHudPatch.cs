@@ -354,6 +354,9 @@ namespace TownOfHost
                         if (LocalPlayerKnowsJackal)
                             pva.NameText.color = Utils.GetRoleColor(CustomRoles.Jackal); //変更対象の名前をジャッカル色にする
                         break;
+                }
+                switch (target.GetCustomSubRole())
+                {
                     case CustomRoles.Lovers:
                         if (seer.Is(CustomRoles.Lovers) || seer.Data.IsDead)
                             pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Lovers), "♡");
@@ -411,7 +414,10 @@ namespace TownOfHost
         {
             Logger.Info("------------会議終了------------", "Phase");
             if (AmongUsClient.Instance.AmHost)
+            {
                 AntiBlackout.SetIsDead();
+                PlayerControl.AllPlayerControls.ToArray().Do(pc => RandomSpawn.CustomNetworkTransformPatch.NumOfTP[pc.PlayerId] = 0);
+            }
         }
     }
 }
