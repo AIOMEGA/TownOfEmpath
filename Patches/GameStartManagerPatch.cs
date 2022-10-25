@@ -41,14 +41,7 @@ namespace TownOfHost
                         : $"<color={Main.ModColor}>{Main.HideName.Value}</color>";
 
                 // Make Public Button
-<<<<<<< HEAD
-                bool NameIncludeMod = SaveManager.PlayerName.ToLower().Contains("mod");
-                bool NameIncludeTOE = SaveManager.PlayerName.ToUpper().Contains("TOE");
-                if (ModUpdater.isBroken || ModUpdater.hasUpdate || (NameIncludeMod && !NameIncludeTOE) ||
-                    !Main.AllowPublicRoom)
-=======
                 if (ModUpdater.isBroken || ModUpdater.hasUpdate || !Main.AllowPublicRoom)
->>>>>>> 75baeeba657adc03a809298008e1bc4e230d9263
                 {
                     __instance.MakePublicButton.color = Palette.DisabledClear;
                     __instance.privatePublicText.color = Palette.DisabledClear;
