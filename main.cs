@@ -34,9 +34,9 @@ namespace TownOfHost
         public const string OriginalForkId = "OriginalTOH"; // Don't Change The Value. / この値を変更しないでください。
         //Sorry for many Japanese comments.
         public const string PluginGuid = "com.emptybottle.townofhost";
-        public const string PluginVersion = ThisAssembly.Git.Tag;
+        public const string PluginVersion = "1.0.0";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
-        public static Version version = Version.Parse(PluginVersion.Replace("v", ""));
+        public static Version version = Version.Parse(PluginVersion);
         public static BepInEx.Logging.ManualLogSource Logger;
         public static bool hasArgumentException = false;
         public static string ExceptionMessage;
