@@ -150,7 +150,7 @@ namespace TownOfHost
             {
                 HttpClient http = new();
                 http.DefaultRequestHeaders.Add("User-Agent", "TownOfHost Updater");
-                var response = await http.GetAsync(new System.Uri("https://api.github.com/repos/tukasa0001/TownOfHost/releases/latest"), HttpCompletionOption.ResponseContentRead);
+                var response = await http.GetAsync(new System.Uri("https://api.github.com/repos/AIOMEGA/TownOfEmpath/releases/latest"), HttpCompletionOption.ResponseContentRead);
                 if (response.StatusCode != HttpStatusCode.OK || response.Content == null)
                 {
                     Logger.Error("Server returned no data: " + response.StatusCode.ToString(), "ModUpdater");

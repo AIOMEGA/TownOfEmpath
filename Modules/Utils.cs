@@ -561,13 +561,13 @@ namespace TownOfHost
             else
             {
                 if (AmongUsClient.Instance.IsGamePublic)
-                    name = $"<color={Main.ModColor}>TownOfHost v{Main.PluginVersion}</color>\r\n" + name;
+                    name = $"<color={Main.ModColor}>TownOfHost {Main.PluginVersion}</color>\r\n" + name;
                 switch (Options.GetSuffixMode())
                 {
                     case SuffixModes.None:
                         break;
                     case SuffixModes.TOE:
-                        name += $"\r\n<color={Main.ModColor}>TOE v{Main.PluginVersion}</color>";
+                        name += $"\r\n<color={Main.ModColor}>TOE {Main.PluginVersion}</color>";
                         break;
                     case SuffixModes.Streaming:
                         name += $"\r\n<color={Main.ModColor}>{GetString("SuffixMode.Streaming")}</color>";
@@ -946,7 +946,7 @@ namespace TownOfHost
         public static void DumpLog()
         {
             string t = DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss");
-            string filename = $"{System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}/TownOfHost-v{Main.PluginVersion}-{t}.log";
+            string filename = $"{System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}/TownOfHost-{Main.PluginVersion}-{t}.log";
             FileInfo file = new(@$"{System.Environment.CurrentDirectory}/BepInEx/LogOutput.log");
             file.CopyTo(@filename);
             System.Diagnostics.Process.Start(@$"{System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}");
