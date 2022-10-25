@@ -45,4 +45,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with: 
-          files: TownOfEmpath-${{ github.ref_name }}.zip
+          files: |
+            TownOfEmpath-${{ github.ref_name }}.zip
+            TownOfEmpath/BepInEx/plugins/*
