@@ -182,10 +182,9 @@ namespace TownOfHost
                     for (JToken current = assets.First; current != null; current = current.Next)
                     {
                         string browser_download_url = current["browser_download_url"]?.ToString();
-                        if (browser_download_url != null && current["content_type"] != null)
+                        if (browser_download_url != null)
                         {
-                            if (current["content_type"].ToString().Equals("application/x-msdownload") &&
-                                browser_download_url.EndsWith(".dll"))
+                            if (browser_download_url.EndsWith(".dll"))
                             {
                                 updateURI = browser_download_url;
                                 return true;
