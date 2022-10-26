@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Hazel;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class TimeThief
     {

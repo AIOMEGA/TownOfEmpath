@@ -3,7 +3,7 @@ using HarmonyLib;
 using InnerNet;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(ControllerManager), nameof(ControllerManager.Update))]
     class ControllerManagerUpdatePatch
@@ -70,7 +70,7 @@ namespace TownOfHost
                 Utils.ShowActiveSettingsHelp();
             }
             //TOHオプションをデフォルトに設定
-            if (GetKeysDown(new[] { KeyCode.Delete, KeyCode.LeftControl }) && GameObject.Find(GameOptionsMenuPatch.TownOfHostObjectName) != null)
+            if (GetKeysDown(new[] { KeyCode.Delete, KeyCode.LeftControl }) && GameObject.Find(GameOptionsMenuPatch.TownOfEmpathObjectName) != null)
             {
                 CustomOption.Options.ToArray().Where(x => x.Id > 0).Do(x => x.UpdateSelection(x.DefaultSelection));
             }

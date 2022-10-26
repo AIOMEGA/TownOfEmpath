@@ -1,4 +1,4 @@
-namespace TownOfHost
+namespace TownOfEmpath
 {
     static class CustomRolesHelper
     {

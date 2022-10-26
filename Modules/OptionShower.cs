@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class OptionShower
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Hazel;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.CoStartGame))]
     class ChangeRoleSettings

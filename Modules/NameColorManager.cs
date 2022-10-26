@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hazel;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public class NameColorManager
     {

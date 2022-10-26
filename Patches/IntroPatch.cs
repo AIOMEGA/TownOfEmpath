@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using HarmonyLib;
 using UnityEngine;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.ShowRole))]
     class SetUpRoleTextPatch

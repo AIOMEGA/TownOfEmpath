@@ -1,8 +1,8 @@
 using HarmonyLib;
 using UnityEngine;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     //From The Other Roles source
     //https://github.com/Eisbison/TheOtherRoles/blob/main/TheOtherRoles/Patches/CredentialsPatch.cs
@@ -93,7 +93,7 @@ namespace TownOfHost
                 tohLogo.transform.position = Vector3.up;
                 tohLogo.transform.localScale *= 1.2f;
                 var renderer = tohLogo.AddComponent<SpriteRenderer>();
-                renderer.sprite = Helpers.LoadSpriteFromResources("TownOfHost.Resources.TownOfHost-Logo.png", 300f);
+                renderer.sprite = Helpers.LoadSpriteFromResources("TownOfEmpath.Resources.TownOfEmpath-Logo.png", 300f);
             }
         }
     }

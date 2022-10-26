@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using AmongUs.Data;
 using HarmonyLib;
 using InnerNet;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.OnGameJoined))]
     class OnGameJoinedPatch
@@ -57,6 +57,7 @@ namespace TownOfHost
         {
             //            Logger.info($"RealNames[{data.Character.PlayerId}]を削除");
             //            main.RealNames.Remove(data.Character.PlayerId);
+            var opt = Main.RealOptionsData.DeepCopy();
             if (GameStates.IsInGame)
             {
                 if (data.Character.Is(CustomRoles.TimeThief))

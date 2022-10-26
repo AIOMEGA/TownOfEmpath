@@ -2,9 +2,9 @@ using System;
 using HarmonyLib;
 using UnhollowerBaseLib;
 using UnityEngine;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
     class HudManagerPatch

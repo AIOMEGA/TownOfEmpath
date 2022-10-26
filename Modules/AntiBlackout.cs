@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Hazel;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class AntiBlackout
     {

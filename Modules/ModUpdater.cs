@@ -10,9 +10,9 @@ using Newtonsoft.Json.Linq;
 using Twitch;
 using UnityEngine;
 using UnityEngine.UI;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
     public class ModUpdaterButton
@@ -149,7 +149,7 @@ namespace TownOfHost
             try
             {
                 HttpClient http = new();
-                http.DefaultRequestHeaders.Add("User-Agent", "TownOfHost Updater");
+                http.DefaultRequestHeaders.Add("User-Agent", "TownOfEmpath Updater");
                 var response = await http.GetAsync(new System.Uri("https://api.github.com/repos/AIOMEGA/TownOfEmpath/releases/latest"), HttpCompletionOption.ResponseContentRead);
                 if (response.StatusCode != HttpStatusCode.OK || response.Content == null)
                 {
@@ -210,7 +210,7 @@ namespace TownOfHost
             try
             {
                 HttpClient http = new();
-                http.DefaultRequestHeaders.Add("User-Agent", "TownOfHost Updater");
+                http.DefaultRequestHeaders.Add("User-Agent", "TownOfEmpath Updater");
                 var response = await http.GetAsync(new System.Uri(updateURI), HttpCompletionOption.ResponseContentRead);
                 if (response.StatusCode != HttpStatusCode.OK || response.Content == null)
                 {

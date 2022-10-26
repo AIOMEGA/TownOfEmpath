@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     //参考元:https://github.com/yukieiji/ExtremeRoles/blob/master/ExtremeRoles/Patches/AirShipStatusPatch.cs
     [HarmonyPatch(typeof(AirshipStatus), nameof(AirshipStatus.PrespawnStep))]

@@ -3,7 +3,7 @@ using HarmonyLib;
 using InnerNet;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(GameStartManager), nameof(GameStartManager.Update))]
     public static class GameStartManagerUpdatePatch

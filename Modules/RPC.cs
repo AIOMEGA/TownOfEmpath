@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using HarmonyLib;
 using Hazel;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     enum CustomRPC
     {

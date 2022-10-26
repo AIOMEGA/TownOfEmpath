@@ -9,9 +9,9 @@ using BepInEx.IL2CPP;
 using HarmonyLib;
 using UnityEngine;
 
-[assembly: AssemblyFileVersionAttribute(TownOfHost.Main.PluginVersion)]
-[assembly: AssemblyInformationalVersionAttribute(TownOfHost.Main.PluginVersion)]
-namespace TownOfHost
+[assembly: AssemblyFileVersionAttribute(TownOfEmpath.Main.PluginVersion)]
+[assembly: AssemblyInformationalVersionAttribute(TownOfEmpath.Main.PluginVersion)]
+namespace TownOfEmpath
 {
     [BepInPlugin(PluginGuid, "Town Of Host: Town Of Empath", PluginVersion)]
     [BepInProcess("Among Us.exe")]
@@ -133,12 +133,12 @@ namespace TownOfHost
             ForceJapanese = Config.Bind("Client Options", "Force Japanese", false);
             JapaneseRoleName = Config.Bind("Client Options", "Japanese Role Name", true);
             Logger = BepInEx.Logging.Logger.CreateLogSource("TownOfEmpath");
-            TownOfHost.Logger.Enable();
-            TownOfHost.Logger.Disable("NotifyRoles");
-            TownOfHost.Logger.Disable("SendRPC");
-            TownOfHost.Logger.Disable("ReceiveRPC");
-            TownOfHost.Logger.Disable("SwitchSystem");
-            //TownOfHost.Logger.isDetail = true;
+            TownOfEmpath.Logger.Enable();
+            TownOfEmpath.Logger.Disable("NotifyRoles");
+            TownOfEmpath.Logger.Disable("SendRPC");
+            TownOfEmpath.Logger.Disable("ReceiveRPC");
+            TownOfEmpath.Logger.Disable("SwitchSystem");
+            //TownOfEmpath.Logger.isDetail = true;
 
             AllPlayerCustomRoles = new Dictionary<byte, CustomRoles>();
             AllPlayerCustomSubRoles = new Dictionary<byte, CustomRoles>();
@@ -242,32 +242,32 @@ namespace TownOfHost
             }
             catch (ArgumentException ex)
             {
-                TownOfHost.Logger.Error("エラー:Dictionaryの値の重複を検出しました", "LoadDictionary");
-                TownOfHost.Logger.Error(ex.Message, "LoadDictionary");
+                TownOfEmpath.Logger.Error("エラー:Dictionaryの値の重複を検出しました", "LoadDictionary");
+                TownOfEmpath.Logger.Error(ex.Message, "LoadDictionary");
                 hasArgumentException = true;
                 ExceptionMessage = ex.Message;
                 ExceptionMessageIsShown = false;
             }
-            TownOfHost.Logger.Info($"{Application.version}", "AmongUs Version");
+            TownOfEmpath.Logger.Info($"{Application.version}", "AmongUs Version");
 
-            TownOfHost.Logger.Info($"{nameof(ThisAssembly.Git.Branch)}: {ThisAssembly.Git.Branch}", "GitVersion");
-            TownOfHost.Logger.Info($"{nameof(ThisAssembly.Git.BaseTag)}: {ThisAssembly.Git.BaseTag}", "GitVersion");
-            TownOfHost.Logger.Info($"{nameof(ThisAssembly.Git.Commit)}: {ThisAssembly.Git.Commit}", "GitVersion");
-            TownOfHost.Logger.Info($"{nameof(ThisAssembly.Git.Commits)}: {ThisAssembly.Git.Commits}", "GitVersion");
-            TownOfHost.Logger.Info($"{nameof(ThisAssembly.Git.IsDirty)}: {ThisAssembly.Git.IsDirty}", "GitVersion");
-            TownOfHost.Logger.Info($"{nameof(ThisAssembly.Git.Sha)}: {ThisAssembly.Git.Sha}", "GitVersion");
-            TownOfHost.Logger.Info($"{nameof(ThisAssembly.Git.Tag)}: {ThisAssembly.Git.Tag}", "GitVersion");
+            TownOfEmpath.Logger.Info($"{nameof(ThisAssembly.Git.Branch)}: {ThisAssembly.Git.Branch}", "GitVersion");
+            TownOfEmpath.Logger.Info($"{nameof(ThisAssembly.Git.BaseTag)}: {ThisAssembly.Git.BaseTag}", "GitVersion");
+            TownOfEmpath.Logger.Info($"{nameof(ThisAssembly.Git.Commit)}: {ThisAssembly.Git.Commit}", "GitVersion");
+            TownOfEmpath.Logger.Info($"{nameof(ThisAssembly.Git.Commits)}: {ThisAssembly.Git.Commits}", "GitVersion");
+            TownOfEmpath.Logger.Info($"{nameof(ThisAssembly.Git.IsDirty)}: {ThisAssembly.Git.IsDirty}", "GitVersion");
+            TownOfEmpath.Logger.Info($"{nameof(ThisAssembly.Git.Sha)}: {ThisAssembly.Git.Sha}", "GitVersion");
+            TownOfEmpath.Logger.Info($"{nameof(ThisAssembly.Git.Tag)}: {ThisAssembly.Git.Tag}", "GitVersion");
 
             if (!File.Exists("template.txt"))
             {
-                TownOfHost.Logger.Info("Among Us.exeと同じフォルダにtemplate.txtが見つかりませんでした。新規作成します。", "Template");
+                TownOfEmpath.Logger.Info("Among Us.exeと同じフォルダにtemplate.txtが見つかりませんでした。新規作成します。", "Template");
                 try
                 {
                     File.WriteAllText(@"template.txt", "test:This is template text.\\nLine breaks are also possible.\ntest:これは定型文です。\\n改行も可能です。");
                 }
                 catch (Exception ex)
                 {
-                    TownOfHost.Logger.Error(ex.ToString(), "Template");
+                    TownOfEmpath.Logger.Error(ex.ToString(), "Template");
                 }
             }
 

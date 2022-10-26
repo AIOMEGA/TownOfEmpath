@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Hazel;
 using UnityEngine;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class FireWorks
     {

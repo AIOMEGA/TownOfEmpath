@@ -1,7 +1,7 @@
 using AmongUs.Data;
 using HarmonyLib;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     class ExileControllerWrapUpPatch
     {
@@ -44,6 +44,7 @@ namespace TownOfHost
                 exiled = AntiBlackout_LastExiled;
             }
 
+            var opt = Main.RealOptionsData.DeepCopy();
             Main.witchMeeting = false;
             bool DecidedWinner = false;
             if (!AmongUsClient.Instance.AmHost) return; //ホスト以外はこれ以降の処理を実行しません
@@ -109,8 +110,9 @@ namespace TownOfHost
                     player?.ResetVotingTime();
                 if (Executioner.Target.ContainsValue(x.Key))
                     Executioner.ChangeRoleByTarget(player);
-                if (Outlaw.Target.ContainsValue(x.Key))
+                if (Outlaw.Target.ContainsValue(x.Key)) //Bookmark
                     Outlaw.ChangeRoleByTarget(player);
+                    
             });
             Main.AfterMeetingDeathPlayers.Clear();
             if (Options.RandomSpawn.GetBool())

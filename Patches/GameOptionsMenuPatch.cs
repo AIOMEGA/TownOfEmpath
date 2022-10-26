@@ -5,7 +5,7 @@ using UnhollowerBaseLib;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     [HarmonyPatch(typeof(GameSettingMenu), nameof(GameSettingMenu.InitializeOptions))]
     public static class GameSettingMenuPatch
@@ -22,7 +22,7 @@ namespace TownOfHost
     [HarmonyPriority(Priority.First)]
     public static class GameOptionsMenuPatch
     {
-        public const string TownOfHostObjectName = "TOHSettings";
+        public const string TownOfEmpathObjectName = "TOESettings";
 
         public static void Postfix(GameOptionsMenu __instance)
         {
@@ -43,14 +43,14 @@ namespace TownOfHost
                 }
             }
 
-            if (GameObject.Find(TownOfHostObjectName) != null)
+            if (GameObject.Find(TownOfEmpathObjectName) != null)
             {
-                GameObject.Find(TownOfHostObjectName)
+                GameObject.Find(TownOfEmpathObjectName)
                     .transform
                     .FindChild("GameGroup")
                     .FindChild("Text")
                     .GetComponent<TMPro.TextMeshPro>()
-                    .SetText("TownOfHost Settings");
+                    .SetText("TownOfEmpath Settings");
 
                 return;
             }
@@ -67,7 +67,7 @@ namespace TownOfHost
                 .FindChild("GameGroup")
                 .FindChild("SliderInner")
                 .GetComponent<GameOptionsMenu>();
-            tohSettings.name = TownOfHostObjectName;
+            tohSettings.name = TownOfEmpathObjectName;
 
             var roleTab = GameObject.Find("RoleTab");
             var gameTab = GameObject.Find("GameTab");
@@ -75,7 +75,7 @@ namespace TownOfHost
             var tohTab = Object.Instantiate(roleTab, roleTab.transform.parent);
             var tohTabHighlight = tohTab.transform.FindChild("Hat Button").FindChild("Tab Background")
                 .GetComponent<SpriteRenderer>();
-            tohTab.transform.FindChild("Hat Button").FindChild("Icon").GetComponent<SpriteRenderer>().sprite = Helpers.LoadSpriteFromResources("TownOfHost.Resources.TabIcon.png", 100f);
+            tohTab.transform.FindChild("Hat Button").FindChild("Icon").GetComponent<SpriteRenderer>().sprite = Helpers.LoadSpriteFromResources("TownOfEmpath.Resources.TabIcon.png", 100f);
 
             gameTab.transform.position += Vector3.left * 0.5f;
             tohTab.transform.position += Vector3.right * 0.5f;

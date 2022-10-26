@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Hazel;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class CustomWinnerHolder
     {

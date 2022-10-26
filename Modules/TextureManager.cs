@@ -3,7 +3,7 @@ using System.IO;
 using UnhollowerBaseLib;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     class TextureManager
     {

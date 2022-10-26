@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using HarmonyLib;
 using Hazel;
 using UnityEngine;
-using static TownOfHost.Options;
+using static TownOfEmpath.Options;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class Executioner
     {

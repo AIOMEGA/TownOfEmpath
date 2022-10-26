@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class Mare
     {

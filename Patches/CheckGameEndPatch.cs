@@ -1,7 +1,7 @@
 using HarmonyLib;
 using Hazel;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     //勝利判定処理
     [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.CheckEndCriteria))]

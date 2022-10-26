@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class PlayerState
     {

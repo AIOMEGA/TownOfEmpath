@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using HarmonyLib;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class Translator
     {
@@ -20,7 +20,7 @@ namespace TownOfHost
         public static void LoadLangs()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            var stream = assembly.GetManifestResourceStream("TownOfHost.Resources.string.csv");
+            var stream = assembly.GetManifestResourceStream("TownOfEmpath.Resources.string.csv");
             var sr = new StreamReader(stream);
             tr = new Dictionary<string, Dictionary<int, string>>();
 

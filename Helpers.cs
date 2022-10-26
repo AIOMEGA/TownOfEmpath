@@ -3,7 +3,7 @@ using System.Reflection;
 using UnhollowerBaseLib;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
 
     // https://github.com/Eisbison/TheOtherRoles/blob/main/TheOtherRoles/Helpers.cs

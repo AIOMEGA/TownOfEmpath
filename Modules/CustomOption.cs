@@ -4,7 +4,7 @@ using System.Linq;
 using BepInEx.Configuration;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public class CustomOption
     {
@@ -277,7 +277,7 @@ namespace TownOfHost
                 if (AmongUsClient.Instance.AmHost && PlayerControl.LocalPlayer)
                 {
                     if (Entry != null) Entry.Value = Selection;
-                    if (Id == TownOfHost.Options.PresetId)
+                    if (Id == TownOfEmpath.Options.PresetId)
                     {
                         SwitchPreset(Selection);
                     }

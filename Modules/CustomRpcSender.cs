@@ -3,7 +3,7 @@ using Hazel;
 using InnerNet;
 using UnhollowerBaseLib;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public class CustomRpcSender
     {

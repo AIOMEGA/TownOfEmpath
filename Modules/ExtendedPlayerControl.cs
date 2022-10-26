@@ -5,7 +5,7 @@ using Hazel;
 using InnerNet;
 using UnityEngine;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     static class ExtendedPlayerControl
     {
@@ -37,6 +37,17 @@ namespace TownOfHost
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
             }
         }
+        /*public static void RpcResetRole(this PlayerControl player)
+        {
+            CustomRoles role = CustomRoles.Crewmate;
+            if (AmongUsClient.Instance.AmHost)
+            {
+                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetCustomRole, Hazel.SendOption.Reliable, -1);
+                writer.Write(player.PlayerId);
+                writer.WritePacked((int)role);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+            }
+        }*/
         public static void SetCustomRole(this PlayerControl player, CustomRoles role)
         {
             Main.AllPlayerCustomRoles[player.PlayerId] = role;

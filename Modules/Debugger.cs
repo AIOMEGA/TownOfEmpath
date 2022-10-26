@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using LogLevel = BepInEx.Logging.LogLevel;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     class Webhook
     {
@@ -17,7 +17,7 @@ namespace TownOfHost
             Dictionary<string, string> strs = new()
             {
                 { "content", text },
-                { "username", "TownOfHost-Debugger" },
+                { "username", "TownOfEmpath-Debugger" },
                 { "avatar_url", "https://cdn.discordapp.com/avatars/336095904320716800/95243b1468018a24f7ae03d7454fd5f2.webp?size=40" }
             };
             TaskAwaiter<HttpResponseMessage> awaiter = httpClient.PostAsync(

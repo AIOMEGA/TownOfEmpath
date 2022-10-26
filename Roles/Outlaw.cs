@@ -5,9 +5,9 @@ using Hazel;
 using MS.Internal.Xml.XPath;
 using UnityEngine;
 using static RoleOptionsData;
-using static TownOfHost.Translator;
+using static TownOfEmpath.Translator;
 
-namespace TownOfHost
+namespace TownOfEmpath
 {
     public static class Outlaw
     {
@@ -22,16 +22,17 @@ namespace TownOfHost
         public static CustomOption ChangeRolesAfterTargetKilled;
         public static CustomOption ChangeRolesAfterKilledTarget;
         public static CustomOption CorruptSheriffEnabled;
+        public static CustomOption PostTransformCanVent;
 
         public static Dictionary<byte, float> CurrentKillCooldown = new();
         public static Dictionary<byte, byte> Target = new();
         public static readonly string[] ChangeRoles =
         {
-            CustomRoles.Crewmate.ToString(), CustomRoles.Jester.ToString(), CustomRoles.Opportunist.ToString(),
+            CustomRoles.Jester.ToString(), CustomRoles.Opportunist.ToString(),
         };
         public static readonly CustomRoles[] CRoleChangeRoles =
         {
-            CustomRoles.Crewmate, CustomRoles.Jester, CustomRoles.Opportunist,
+            CustomRoles.Jester, CustomRoles.Opportunist,
         };
         public static readonly string[] ChangeRolesAfterMurder =
         {
@@ -49,6 +50,7 @@ namespace TownOfHost
             OutlawCanKill = CustomOption.Create(Id + 12, TabGroup.NeutralRoles, Color.white, "CanKill", true, Options.CustomRoleSpawnChances[CustomRoles.Outlaw]);
             OutlawKillCooldown = CustomOption.Create(Id + 13, TabGroup.NeutralRoles, Color.white, "KillCooldown", 30, 2.5f, 180, 2.5f, Options.CustomRoleSpawnChances[CustomRoles.Outlaw]);
             ChangeRolesAfterTargetKilled = CustomOption.Create(Id + 14, TabGroup.NeutralRoles, Color.white, "OutlawChangeRolesAfterTargetKilled", ChangeRoles, ChangeRoles[1], Options.CustomRoleSpawnChances[CustomRoles.Outlaw]);
+            PostTransformCanVent = CustomOption.Create(Id + 10, TabGroup.NeutralRoles, Color.white, "CanVentAfterKill", true, Options.CustomRoleSpawnChances[CustomRoles.Outlaw]);
             ChangeRolesAfterKilledTarget = CustomOption.Create(Id + 15, TabGroup.NeutralRoles, Color.white, "OutlawChangeRolesAfterKilledTarget", ChangeRolesAfterMurder, ChangeRolesAfterMurder[1], Options.CustomRoleSpawnChances[CustomRoles.Outlaw]);
             //CorruptSheriffEnabled = CustomOption.Create(Id + 15, TabGroup.NeutralRoles, Color.white, "%role%", true, Options.CustomRoleSpawnChances[CustomRoles.Outlaw], replacementDic: new() { { "%role%", Helpers.ColorString(Utils.GetRoleColor(CustomRoles.CorruptSheriff), Utils.GetRoleName(CustomRoles.CorruptSheriff)) } });
         }
@@ -127,12 +129,27 @@ namespace TownOfHost
         }
         public static void ChangeRoleByTarget(PlayerControl target)
         {
+            
+            var opt = Main.RealOptionsData.DeepCopy();
             byte Outlaw = 0x74;
             Target.Do(x =>
             {
                 if (x.Value == target.PlayerId)
                     Outlaw = x.Key;
             });
+            /*foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                if (pc.Is(CustomRoles.Outlaw))
+                {
+                    opt.SetVision(pc, false);
+                    bool OutlawCanUse = PostTransformCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(OutlawCanUse && !pc.Data.IsDead);
+                    pc.Data.Role.CanVent = OutlawCanUse;
+                    pc.Data.Role.CanUseKillButton = false;
+                    //__instance.KillButton.SetDisabled();
+                    //HudManager.KillButton.ToggleVisible(false);
+                }
+            }*/
             Utils.GetPlayerById(Outlaw).RpcSetCustomRole(CRoleChangeRoles[ChangeRolesAfterTargetKilled.GetSelection()]);
             Target.Remove(Outlaw);
             SendRPC(Outlaw);
@@ -140,6 +157,14 @@ namespace TownOfHost
         }
         public static void ChangeRole(PlayerControl outlaw)
         {
+            /*var opt = Main.RealOptionsData.DeepCopy();
+            opt.SetVision(outlaw, false);
+            bool OutlawCanUse = PostTransformCanVent.GetBool();
+            DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(OutlawCanUse && !outlaw.Data.IsDead);
+            outlaw.Data.Role.CanVent = OutlawCanUse;
+            outlaw.Data.Role.CanUseKillButton = false;
+            //__instance.KillButton.SetDisabled();
+            //HudManager.KillButton.ToggleVisible(false);*/
             outlaw.RpcSetCustomRole(CRoleChangeRoles[ChangeRolesAfterTargetKilled.GetSelection()]);
             Target.Remove(outlaw.PlayerId);
             SendRPC(outlaw.PlayerId);
@@ -148,7 +173,14 @@ namespace TownOfHost
         {
             if (player.Data.IsDead)
                 return false;
+            /*if (PlayerControl.CheckMurder(target.CustomRoles.Sheriff)
+            {
 
+            }*/
+            if(player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Opportunist))
+            {
+                return false;
+            }
             if (!Sheriff.IsEnable)
             {
                 if (OutlawCanKill.GetBool())
@@ -165,10 +197,20 @@ namespace TownOfHost
                     if (target.Is(CustomRoles.Sheriff))
                     {
                         PlayerState.SetDeathReason(target.PlayerId, PlayerState.DeathReason.Shot);
-                        killer.RpcMurderPlayer(target);
-                        RPC.PlaySoundRPC(killer.PlayerId, Sounds.TaskComplete);
+                        //killer.RpcMurderPlayer(target);
+                        if (ChangeRolesAfterKilledTarget.GetSelection() == 1)
+                        {
+                            RPC.PlaySoundRPC(killer.PlayerId, Sounds.TaskComplete);
+                            killer.RpcRevertShapeshift(true);
+                            killer.RpcSetCustomRole(CRoleChangeRolesAfterMurder[ChangeRolesAfterKilledTarget.GetSelection()]);
+                            Main.AliveImpostorCount++;
+                            Target.Remove(killer.PlayerId);
+                            SendRPC(killer.PlayerId);
+                        }
+                        else
+                            RPC.PlaySoundRPC(killer.PlayerId, Sounds.TaskComplete);
+                        //killer.RpcRevertShapeshift(true);
                         killer.RpcSetCustomRole(CRoleChangeRolesAfterMurder[ChangeRolesAfterKilledTarget.GetSelection()]);
-                        Main.AliveImpostorCount++;
                         Target.Remove(killer.PlayerId);
                         SendRPC(killer.PlayerId);
                     }
