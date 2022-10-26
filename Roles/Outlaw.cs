@@ -129,14 +129,15 @@ namespace TownOfEmpath
         }
         public static void ChangeRoleByTarget(PlayerControl target)
         {
-            
-            var opt = Main.RealOptionsData.DeepCopy();
+            //var opt = Main.RealOptionsData.DeepCopy();
             byte Outlaw = 0x74;
             Target.Do(x =>
             {
                 if (x.Value == target.PlayerId)
                     Outlaw = x.Key;
             });
+
+
             /*foreach (var pc in PlayerControl.AllPlayerControls)
             {
                 if (pc.Is(CustomRoles.Outlaw))
@@ -168,7 +169,7 @@ namespace TownOfEmpath
             outlaw.RpcSetCustomRole(CRoleChangeRoles[ChangeRolesAfterTargetKilled.GetSelection()]);
             Target.Remove(outlaw.PlayerId);
             SendRPC(outlaw.PlayerId);
-        } 
+        }
         public static bool CanUseKillButton(PlayerControl player)
         {
             if (player.Data.IsDead)
@@ -177,10 +178,6 @@ namespace TownOfEmpath
             {
 
             }*/
-            if(player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Opportunist))
-            {
-                return false;
-            }
             if (!Sheriff.IsEnable)
             {
                 if (OutlawCanKill.GetBool())
