@@ -146,7 +146,7 @@ namespace TownOfEmpath
             Target.Remove(outlaw.PlayerId);
             SendRPC(outlaw.PlayerId);
         }
-        public static bool CanUseKillButton(PlayerControl player)
+        public static bool CanUseKillButton(PlayerControl player) //controls both whether outlaw can kill and his subroles at the same time
         {
             if (player.Data.IsDead)
                 return false;
