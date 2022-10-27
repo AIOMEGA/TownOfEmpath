@@ -85,12 +85,12 @@ namespace TownOfEmpath
                 Target.Add(playerId, SelectedTarget.PlayerId);
                 SendRPC(playerId, SelectedTarget.PlayerId, "SetTarget");
                 Logger.Info($"{Utils.GetPlayerById(playerId)?.GetNameWithRole()}:{SelectedTarget.GetNameWithRole()}", "Outlaw");
-            } 
+            }
         }
         public static int SheriffSpawned()
         {
             int enabled = 0;
-            for(int i=0; i <= int.Parse(Sheriff.IsEnable.ToString()) ; i++)
+            for (int i = 0; i <= int.Parse(Sheriff.IsEnable.ToString()); i++)
             {
                 enabled++;
             }
@@ -145,30 +145,30 @@ namespace TownOfEmpath
             outlaw.RpcSetCustomRole(CRoleChangeRoles[ChangeRolesAfterTargetKilled.GetSelection()]);
             Target.Remove(outlaw.PlayerId);
             SendRPC(outlaw.PlayerId);
-        } 
+        }
         public static bool CanUseKillButton(PlayerControl player)
         {
             if (player.Data.IsDead)
                 return false;
-            TownOfEmpath.Logger.Info(player.GetRoleName + "", "");
+            //TownOfEmpath.Logger.Info(player.GetRoleName + "", "");
             if (player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Opportunist))
             {
                 //HudManager __instance;
                 //__instance.KillButton.OverrideText($"{GetString("WarlockCurseButtonText")}");
-                TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is false1", "");
+                //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is false1", "");
                 return false;
             }
             if (!Sheriff.IsEnable)
             {
                 if (OutlawCanKill.GetBool())
                 {
-                    TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true1", "");
+                    //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true1", "");
                     return true;
                 }
-                TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is false2", "");
+                //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is false2", "");
                 return false;
             }
-            TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true2", "");
+            //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true2", "");
             return true;
         }
         public static bool OnCheckMurder(PlayerControl killer, PlayerControl target, string Process)

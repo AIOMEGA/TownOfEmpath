@@ -1170,7 +1170,8 @@ namespace TownOfEmpath
                 __instance.myPlayer.Is(CustomRoles.Arsonist) ||
                 (__instance.myPlayer.Is(CustomRoles.Mayor) && Main.MayorUsedButtonCount.TryGetValue(__instance.myPlayer.PlayerId, out var count) && count >= Options.MayorNumOfUseButton.GetInt()) ||
                 (__instance.myPlayer.Is(CustomRoles.Jackal) && !Options.JackalCanVent.GetBool() ||
-                (__instance.myPlayer.Is(CustomRoles.Outlaw) && !Outlaw.OutlawCanVent.GetBool())
+                (__instance.myPlayer.Is(CustomRoles.Outlaw) && !Outlaw.OutlawCanVent.GetBool()) ||
+                __instance.myPlayer.Is(CustomRoles.Jester)
                 ))
                 {
                     MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(__instance.NetId, (byte)RpcCalls.BootFromVent, SendOption.Reliable, -1);
