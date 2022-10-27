@@ -697,6 +697,11 @@ namespace TownOfEmpath
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(OutlawCanUse && !player.Data.IsDead);
                     player.Data.Role.CanVent = OutlawCanUse;
                     return;
+                case CustomRoles.Jester:
+                    bool JesterCanUse = Outlaw.PostTransformCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(JesterCanUse && !player.Data.IsDead);
+                    player.Data.Role.CanVent = JesterCanUse;
+                    return;
             }
         }
         public static bool IsDouseDone(this PlayerControl player)

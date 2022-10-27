@@ -87,6 +87,14 @@ namespace TownOfEmpath
                 case CustomRoles.BountyHunter:
                     BountyHunter.GetAbilityButtonText(__instance);
                     break;
+                case CustomRoles.Jester:
+                    TownOfEmpath.Logger.Info(player.GetRoleName + " Jester Hud Fix3", "");
+                    __instance.KillButton.OverrideText($"{GetString("JesterKillButtonText")}");
+                    if (!Outlaw.PostTransformCanVent.GetBool())
+                    {
+                        __instance.KillButton.OverrideText($"{GetString("JesterVentButtonText")}");
+                    }
+                    break;
             }
 
             __instance.GameSettings.text = OptionShower.GetText();
@@ -147,7 +155,12 @@ namespace TownOfEmpath
             {
                 case CustomRoles.Madmate:
                 case CustomRoles.Jester:
+                    TownOfEmpath.Logger.Info(player.GetRoleName + "Jester Hud Fix2", "");
                     TaskTextPrefix += FakeTasksText;
+                    player.Data.Role.CanUseKillButton = false;
+                    __instance.KillButton.SetDisabled();
+                    __instance.KillButton.ToggleVisible(false);
+                    player.CanUseImpostorVent();
                     break;
                 case CustomRoles.Mafia:
                 case CustomRoles.Mare:
@@ -200,7 +213,7 @@ namespace TownOfEmpath
                     goto DesyncImpostor;
 
                 DesyncImpostor:
-                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel && !player.Is(CustomRoles.Jester))
                         player.Data.Role.CanUseKillButton = true;
                     break;
             }
@@ -302,6 +315,14 @@ namespace TownOfEmpath
                     __instance.ImpostorVentButton.ToggleVisible(isActive && Outlaw.OutlawCanVent.GetBool());
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
+                case CustomRoles.Jester:
+                    TownOfEmpath.Logger.Info(player.GetRoleName + "Jester Post Hud Fix1", "");
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(false);
+                    __instance.SabotageButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(isActive && Outlaw.PostTransformCanVent.GetBool());
+                    __instance.AbilityButton.ToggleVisible(false);
+                    break;
             }
         }
     }
@@ -311,7 +332,7 @@ namespace TownOfEmpath
         public static void Prefix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.Outlaw))
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.Outlaw) /*|| player.Is(CustomRoles.Jester)*/)
             {
                 __state = player.Data.Role.TeamType;
                 player.Data.Role.TeamType = RoleTeamTypes.Crewmate;
@@ -321,7 +342,7 @@ namespace TownOfEmpath
         public static void Postfix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.Outlaw))
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.Outlaw) /*|| player.Is(CustomRoles.Jester)*/)
             {
                 player.Data.Role.TeamType = __state;
             }

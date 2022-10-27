@@ -129,27 +129,12 @@ namespace TownOfEmpath
         }
         public static void ChangeRoleByTarget(PlayerControl target)
         {
-            
-            var opt = Main.RealOptionsData.DeepCopy();
             byte Outlaw = 0x74;
             Target.Do(x =>
             {
                 if (x.Value == target.PlayerId)
                     Outlaw = x.Key;
             });
-            /*foreach (var pc in PlayerControl.AllPlayerControls)
-            {
-                if (pc.Is(CustomRoles.Outlaw))
-                {
-                    opt.SetVision(pc, false);
-                    bool OutlawCanUse = PostTransformCanVent.GetBool();
-                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(OutlawCanUse && !pc.Data.IsDead);
-                    pc.Data.Role.CanVent = OutlawCanUse;
-                    pc.Data.Role.CanUseKillButton = false;
-                    //__instance.KillButton.SetDisabled();
-                    //HudManager.KillButton.ToggleVisible(false);
-                }
-            }*/
             Utils.GetPlayerById(Outlaw).RpcSetCustomRole(CRoleChangeRoles[ChangeRolesAfterTargetKilled.GetSelection()]);
             Target.Remove(Outlaw);
             SendRPC(Outlaw);
@@ -157,14 +142,6 @@ namespace TownOfEmpath
         }
         public static void ChangeRole(PlayerControl outlaw)
         {
-            /*var opt = Main.RealOptionsData.DeepCopy();
-            opt.SetVision(outlaw, false);
-            bool OutlawCanUse = PostTransformCanVent.GetBool();
-            DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(OutlawCanUse && !outlaw.Data.IsDead);
-            outlaw.Data.Role.CanVent = OutlawCanUse;
-            outlaw.Data.Role.CanUseKillButton = false;
-            //__instance.KillButton.SetDisabled();
-            //HudManager.KillButton.ToggleVisible(false);*/
             outlaw.RpcSetCustomRole(CRoleChangeRoles[ChangeRolesAfterTargetKilled.GetSelection()]);
             Target.Remove(outlaw.PlayerId);
             SendRPC(outlaw.PlayerId);
@@ -173,20 +150,25 @@ namespace TownOfEmpath
         {
             if (player.Data.IsDead)
                 return false;
-            /*if (PlayerControl.CheckMurder(target.CustomRoles.Sheriff)
+            TownOfEmpath.Logger.Info(player.GetRoleName + "", "");
+            if (player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Opportunist))
             {
-
-            }*/
-            if(player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Opportunist))
-            {
+                //HudManager __instance;
+                //__instance.KillButton.OverrideText($"{GetString("WarlockCurseButtonText")}");
+                TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is false1", "");
                 return false;
             }
             if (!Sheriff.IsEnable)
             {
                 if (OutlawCanKill.GetBool())
+                {
+                    TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true1", "");
                     return true;
+                }
+                TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is false2", "");
                 return false;
             }
+            TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true2", "");
             return true;
         }
         public static bool OnCheckMurder(PlayerControl killer, PlayerControl target, string Process)

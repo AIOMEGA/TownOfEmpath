@@ -145,6 +145,10 @@ namespace TownOfEmpath
                         if (!CorruptSheriff.CanUseKillButton(killer))
                             return false;
                         break;
+                    case CustomRoles.Outlaw:
+                        if (!Outlaw.CanUseKillButton(killer))
+                            return false;
+                        break;
                 }
             }
 
@@ -315,6 +319,9 @@ namespace TownOfEmpath
                         if (!Outlaw.OnCheckMurder(killer, target, Process: "Suicide"))
                             return false;
                         break;
+                    case CustomRoles.Jester:
+                        return false;
+                        break;
                 }
             }
 
@@ -336,7 +343,6 @@ namespace TownOfEmpath
         }
         public static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
         {
-            var opt = Main.RealOptionsData.DeepCopy();
             if (!target.Data.IsDead || !AmongUsClient.Instance.AmHost) return;
 
             PlayerControl killer = __instance; //読み替え変数
@@ -348,6 +354,10 @@ namespace TownOfEmpath
             {
                 //死因が設定されていない場合は死亡判定
                 PlayerState.SetDeathReason(target.PlayerId, PlayerState.DeathReason.Kill);
+            }
+            if((killer.Is(CustomRoles.Sheriff) || killer.Is(CustomRoles.CorruptSheriff) || killer.Is(CustomRoles.Outlaw)) && PlayerState.GetDeathReason(target.PlayerId) == PlayerState.DeathReason.Kill)
+            {
+                PlayerState.SetDeathReason(target.PlayerId, PlayerState.DeathReason.Shot);
             }
 
             //When Bait is killed
@@ -808,7 +818,7 @@ namespace TownOfEmpath
 
                     //名前色変更処理
                     //自分自身の名前の色を変更
-                    if (target.AmOwner && AmongUsClient.Instance.IsGameStarted)
+                    if (target.AmOwner && AmongUsClient.Instance.IsGameStarted) //bookmark
                     { //targetが自分自身
                         RealName = Helpers.ColorString(target.GetRoleColor(), RealName); //名前の色を変更
                         if (target.Is(CustomRoles.Arsonist) && target.IsDouseDone())
@@ -846,6 +856,8 @@ namespace TownOfEmpath
                         RealName = Helpers.ColorString(target.GetRoleColor(), RealName); //targetの名前をtargetの役職の色で表示
                     else if (target.Is(CustomRoles.Mare) && Utils.IsActive(SystemTypes.Electrical))
                         RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), RealName); //targetの赤色で表示
+                    else if (target.Is(CustomRoles.CorruptSheriff))
+                        RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), RealName);
 
                     //NameColorManager準拠の処理
                     var ncd = NameColorManager.Instance.GetData(seer.PlayerId, target.PlayerId);
@@ -1138,7 +1150,21 @@ namespace TownOfEmpath
                     CustomWinnerHolder.WinnerIds.Add(__instance.myPlayer.PlayerId);
                     return true;
                 }
-                if (__instance.myPlayer.Is(CustomRoles.Sheriff) ||
+/*                if (__instance.myPlayer.Is(CustomRoles.Jester) || __instance.myPlayer.Is(CustomRoles.Opportunist) && !Outlaw.PostTransformCanVent.GetBool())
+                {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(__instance.NetId, (byte)RpcCalls.ExitVent, SendOption.Reliable, -1);
+                    writer.WritePacked(127);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    new LateTask(() =>
+                    {
+                        int clientId = __instance.myPlayer.GetClientId();
+                        MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(__instance.NetId, (byte)RpcCalls.ExitVent, SendOption.Reliable, clientId);
+                        writer2.Write(id);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
+                    }, 0.5f, "Fix DesyncImpostor Stuck");
+                    return false;
+                }*/
+                if (__instance.myPlayer.Is(CustomRoles.Sheriff) || __instance.myPlayer.Is(CustomRoles.Jester) || __instance.myPlayer.Is(CustomRoles.Opportunist) ||
                     __instance.myPlayer.Is(CustomRoles.CorruptSheriff) ||
                 __instance.myPlayer.Is(CustomRoles.SKMadmate) ||
                 __instance.myPlayer.Is(CustomRoles.Arsonist) ||

@@ -313,6 +313,7 @@ ImpostorVision,Has Impostor Vision,インポスター視界,拥有内鬼视野,,
 CanUseSabotage,Can Sabotage,サボタージュを使用できる,可以破坏,,Может Использовать Саботаж
 CanKill,Can Kill,,,,
 ,,,,,
+CanVentAfterKill,Can Vent As Jester/Opportunist,,,,
 OutlawChangeRolesAfterKilledTarget,Role After Killing Sheriff,,,,
 OutlawChangeRolesAfterTargetKilled,Role After Sheriff Dies,,,,
 BountyTargetChangeTime,Time To Swap Bounty(s),ターゲット変更時間,赏金目标切换时间,賞金目標切換時間,Время Смены Его Цели
@@ -441,11 +442,11 @@ Message.TemplateNotFoundClient,"No messages matching {0}"" were found.""",「{0}
 Message.SyncButtonLeft,The emergency meeting button can be used {0} more times,緊急会議ボタンはあと{0}回使用できます,剩余紧急会议次数 {0},"全場拍桌數量還剩下{0}次,請謹慎拍桌",Кнопку экстренной встречи можно использовать еще {0} раз
 Message.Executed,{0} was executed,{0}を処刑しました,{0}被房主处决了,{0}被處刑了,{0} был казнен
 Message.HideGameSettings,Game settings are hidden by the host.,ゲーム設定はホストによって秘匿されています。,游戏设置被房主隐藏。,遊戲設定被房主隱藏。,Настройки игры скрыты хостом.
-Message.AnnounceUsingTOH,This room uses TownOfHost v{0}.\n/now can be used to check the current settings.\nPlease check GitHub for detailed roles descriptions.,この部屋はTownOfHost v{0}を使用しています。\n/nowを使用すると現在の設定が確認できます。\n役職の詳細な説明はGitHubをご確認ください。,,,
+Message.AnnounceUsingTOH,"This room uses TownOfEmpath v{0}.\n/now can be used to check the current settings.\nPlease check GitHub https://github.com/AIOMEGA/TownOfEmpath for detailed roles descriptions, or do /h roles (role name).",この部屋はTownOfHost v{0}を使用しています。\n/nowを使用すると現在の設定が確認できます。\n役職の詳細な説明はGitHubをご確認ください。,,,
 Message.NoDescription,No description.,説明はありません。,,,
 ,,,,,
 ## 警告,,,,,
-Warning.DoInfo,"Every role has a unique objective and ability.\nSome abilities activate automatically and some require user input.\nTo see what your role does and it's objective\nplease type the command ""\m"" or ""\myrole""!",,,,
+Warning.DoInfo,Every role has a unique objective and ability.\nSome abilities activate automatically and some require user input.\nTo see what your role does and it's objective\nplease type the command '/m' or '/myrole'!,,,,
 Warning.ThisIsModded,!!ATTENTION!!\nTHIS IS MODDED AMONG US!\nThis Mod Is Town Of Empath and adds new CUSTOM ROLES\nAdd Me On Discord: OMEGA#2901,,,,
 Warning.EgoistCannotWin,Egoist cannot win!,エゴイストが勝利できません,野心家无法获胜,利己主義者無法獲勝,Egoist не может победить!
 Warning.OverrideExiledPlayer,All ejects will be displayed as tie because the total number of impostors is 1.,合計インポスター数が1のため、追放はすべて同数投票として表示されます。,由于场上仅剩一名内鬼，放逐投票将显示为平票,"由於場上只剩一名狼人,所有逐出訊息都將顯示為平票","Все окна изгнания будут отображаться как ничья, потому что общее количество Предателей равно 1."
@@ -457,6 +458,8 @@ Error.InvalidRoleAssignment,Error: Invalid role found for a player during role a
 Error.SpeedBoosterNullException,Error: The speed boost destination is null.\nPlease save the log and create a bug report ticket.,エラー: スピードブースト先がnullです。\nログを保存し、バグ報告チケットを作成してください。,错误：增速者的增速目标为空。 \n请保存日志并创建错误报告票。,"錯誤:加速器加速的對象無效,\n請將遊戲輸出記錄保存並在TOH官方DC群組開啟一張支援票",Ошибка: пункт назначения повышения скорости не указан.\nСохраните логи и создайте заявку на отчет об ошибке.
 ,,,,,
 ## その他,,,,,
+JesterVentButtonText,Jester Can't Vent!,,,,
+JesterKillButtonText,Jester Can't Kill!,,,,
 ActiveRolesList,Active Roles List,有効な役職一覧,,,
 ForExample,For Example,使用例,使用例子,使用例子,Например
 ForceEnd,No Contest,廃村,强制结束游戏,遊戲已被強制結束,Игра Была Окончена
@@ -474,7 +477,7 @@ updateFailed,Update failed.,アップデートに失敗しました。,更新失
 onSetPublicNoLatest,Public rooms is prohibited except for the latest version.\nPlease update.,最新版以外で公開ルームにはできません。\nアップデートをしてください。,不可以在未安装最新模组的前提下创建公开房间。\n请更新本模组。,"無法建立一個公共房間,因為使用的不是最新版本的模組\n請更新本模組",Публичные лобби запрещены за исключением последней версии.\nПожалуйста обновите.
 CanNotJoinPublicRoomNoLatest,You can't join public rooms except for the latest version.\nPlease update.,最新版以外で公開ルームには参加できません。\nアップデートをしてください。,不可以在未安装最新模组的前提下进入公开房间。\n请更新本模组。,無法在未安裝最新版本的前提下進入公開房間\n請更新本模組,Вы не можете присоединяться к публичным лобби за исключением последней версии.\nПожалуйста обновите.
 ModBrokenMessage,The MOD file is broken.\nPlease re-install it again.,MODを構成するファイルが破損しています。\nもう一度導入しなおしてください。,模组文件损坏。\n请重新安装本模组。,模組檔案損壞\n請重新安裝模組,Файл MOD поврежден.\nПожалуйста переустановите его снова.
-NameIncludeTOH,"You cannot make public rooms unless TOH"" is included in your name.""","TOH""が名前に含まれていない状態では公開部屋にすることはできません。""","不可以在昵称中未带有TOH""字样的前提下把房间状态设置为公开。""","無法公開此房間,因為你名字中沒有含有'TOH'","Вы не можете создавать публичную комнату если в вашем никнейме нет слова TOH""."""
+NameIncludeTOH,"You cannot make public rooms unless TOH"" is included in your name.""",ck,"不可以在昵称中未带有TOH""字样的前提下把房间状态设置为公开。""","無法公開此房間,因為你名字中沒有含有'TOH'","Вы не можете создавать публичную комнату если в вашем никнейме нет слова TOH""."""
 DisabledByProgram,Making room public is disabled by program.,公開ルームはプログラムによって無効化されています,,,Создание публичной лобби отключена программой.
 EnterVentToWin,Enter Vent to Win!!,ベントに入って勝利しろ!!,跳管道来获得胜利！,跳管道來獲得勝利!!,Запрыгните в вентиляцию чтобы победить!!
 FireworksPutPhase,Put {0} Fireworks,あと{0}個置け,还要安放{0}枚烟花,還需要安裝{0}枚煙火,Поставьте {0} Фейерверков
