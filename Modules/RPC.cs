@@ -35,6 +35,7 @@ namespace TownOfEmpath
         SendFireWorksState,
         SetCurrentDousingTarget,
         SetEvilTrackerTarget,
+        BlockVent,
     }
     public enum Sounds
     {
@@ -205,6 +206,13 @@ namespace TownOfEmpath
                     int TargetId = reader.ReadInt32();
                     EvilTracker.RPCSetTarget(TrackerId, TargetId);
                     break;
+                /*case CustomRPC.BlockVent:
+                    if (__instance.Is(CustomRoles.Jester) && !Outlaw.PostTransformCanVent.GetBool())
+                    {
+                        DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(false);
+                        __instance.Data.Role.CanVent = false;
+                    }
+                    break;*/
             }
         }
     }

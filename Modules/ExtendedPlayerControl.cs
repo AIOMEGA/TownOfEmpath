@@ -561,7 +561,7 @@ namespace TownOfEmpath
         {
             bool canUse =
                 pc.GetCustomRole().IsImpostor() ||
-                pc.Is(CustomRoles.Arsonist);
+                pc.Is(CustomRoles.Arsonist) && !pc.Is(CustomRoles.Jester);
 
             return pc.GetCustomRole() switch
             {

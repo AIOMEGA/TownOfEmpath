@@ -7,6 +7,7 @@ using Assets.CoreScripts;
 using HarmonyLib;
 using Hazel;
 using UnityEngine;
+using static Il2CppSystem.Uri;
 using static TownOfEmpath.Translator;
 
 namespace TownOfEmpath
@@ -48,11 +49,45 @@ namespace TownOfEmpath
                     Main.isChatCommand = false;
                     break;
             }
+            //A if statement that allows the command to work for any player needs to be added here.
+            /*foreach(var pc in PlayerControl.AllPlayerControls)
+            {
+                if (pc != AmongUsClient.Instance.AmHost)
+                {
+                    Main.isChatCommand = true;
+                    switch (args[0])
+                    {
+                        case "/msg":
+                        case "/dm":
+                        case "/Dm":
+                        case "/DM":
+                        case "/pv":
+                        case "/Pv":
+                        case "/PV":
+                            canceled = true;
+                            Utils.DM(text);
+                            break;
+                        default:
+                            Main.isChatCommand = false;
+                            break;
+                    }
+                }
+            }*/
             if (AmongUsClient.Instance.AmHost)
             {
                 Main.isChatCommand = true;
                 switch (args[0])
                 {
+                    case "/msg":
+                    case "/dm":
+                    case "/Dm":
+                    case "/DM":
+                    case "/pv":
+                    case "/Pv":
+                    case "/PV":
+                        canceled = true;
+                        Utils.DM(text);
+                        break;
                     case "/win":
                     case "/winner":
                         canceled = true;
@@ -381,6 +416,15 @@ namespace TownOfEmpath
             string subArgs = "";
             switch (args[0])
             {
+                /*case "/msg":
+                case "/dm":
+                case "/Dm":
+                case "/DM":
+                case "/pv":
+                case "/Pv":
+                case "/PV":
+                    Utils.DM(text);
+                    break;*/
                 case "/l":
                 case "/lastresult":
                     Utils.ShowLastResult(player.PlayerId);
@@ -433,6 +477,50 @@ namespace TownOfEmpath
                 default:
                     break;
             }
+        }
+
+        public static bool OnRecieveChat2(ChatController __instance)
+        {
+            if (__instance.TextArea.text == "") return false;
+            __instance.TimeSinceLastMessage = 3f;
+            var text = __instance.TextArea.text;
+            if (ChatHistory.Count == 0 || ChatHistory[^1] != text) ChatHistory.Add(text);
+            ChatControllerUpdatePatch.CurrentHistorySelection = ChatHistory.Count;
+            string[] args = text.Split(' ');
+            string subArgs = "";
+            var canceled = false;
+            var cancelVal = "";
+            Main.isChatCommand = true;
+            Logger.Info(text, "SendChat");
+
+            if (!AmongUsClient.Instance.AmHost)
+            {
+                Main.isChatCommand = true;
+                switch (args[0])
+                {
+                    case "/msg":
+                    case "/dm":
+                    case "/Dm":
+                    case "/DM":
+                    case "/pv":
+                    case "/Pv":
+                    case "/PV":
+                        canceled = true;
+                        Utils.DM(text);
+                        break;
+                    default:
+                        Main.isChatCommand = false;
+                        break;
+                }
+            }
+            if (canceled)
+            {
+                Logger.Info("Command Canceled", "ChatCommand");
+                __instance.TextArea.Clear();
+                __instance.TextArea.SetText(cancelVal);
+                __instance.quickChatMenu.ResetGlyphs();
+            }
+            return !canceled;
         }
     }
     [HarmonyPatch(typeof(ChatController), nameof(ChatController.Update))]
