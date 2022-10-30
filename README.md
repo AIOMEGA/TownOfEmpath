@@ -8,7 +8,7 @@ This mod is a fork of TOH, I plan on adding ATLEAST 15 of my own unique roles, b
 
 I sometimes host this mod myself on Public Lobbies under EmpathTOE. I constantly update this mod and test it with randoms.
 
-DISCORD SERVER: https://discord.gg/6sHwWFST --- Recommended after Innersloth introduced randomized lobby names
+DISCORD SERVER: https://discord.gg/HH3MbXJyw2 --- Recommended after Innersloth introduced randomized lobby names
 
 ## Releases
 
