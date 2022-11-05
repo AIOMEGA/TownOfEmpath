@@ -36,7 +36,7 @@ namespace TownOfEmpath
         };
         public static readonly string[] ChangeRolesAfterMurder =
         {
-            CustomRoles.Sheriff.ToString(), CustomRoles.CorruptSheriff.ToString(),
+            "ChangeSheriff", "ChangeCSheriff",
         };
         public static readonly CustomRoles[] CRoleChangeRolesAfterMurder =
         {
@@ -160,12 +160,12 @@ namespace TownOfEmpath
             }
             if (!Sheriff.IsEnable)
             {
-                if (OutlawCanKill.GetBool())
-                {
-                    //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true1", "");
-                    return true;
-                }
                 //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is false2", "");
+                return false;
+            }
+            if (!OutlawCanKill.GetBool())
+            {
+                //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true1", "");
                 return false;
             }
             //TownOfEmpath.Logger.Info(player.GetRoleName + " can kill is true2", "");
@@ -184,17 +184,21 @@ namespace TownOfEmpath
                         {
                             RPC.PlaySoundRPC(killer.PlayerId, Sounds.TaskComplete);
                             killer.RpcRevertShapeshift(true);
+                            ExtendedPlayerControl.RpcResetRole(killer);
                             killer.RpcSetCustomRole(CRoleChangeRolesAfterMurder[ChangeRolesAfterKilledTarget.GetSelection()]);
                             Main.AliveImpostorCount++;
                             Target.Remove(killer.PlayerId);
                             SendRPC(killer.PlayerId);
                         }
                         else
+                        {
                             RPC.PlaySoundRPC(killer.PlayerId, Sounds.TaskComplete);
-                        //killer.RpcRevertShapeshift(true);
-                        killer.RpcSetCustomRole(CRoleChangeRolesAfterMurder[ChangeRolesAfterKilledTarget.GetSelection()]);
-                        Target.Remove(killer.PlayerId);
-                        SendRPC(killer.PlayerId);
+                            killer.RpcRevertShapeshift(true);
+                            ExtendedPlayerControl.RpcResetRole(killer);
+                            killer.RpcSetCustomRole(CRoleChangeRolesAfterMurder[ChangeRolesAfterKilledTarget.GetSelection()]);
+                            Target.Remove(killer.PlayerId);
+                            SendRPC(killer.PlayerId);
+                        }
                     }
                     break;
 
@@ -202,7 +206,8 @@ namespace TownOfEmpath
                     if (!target.Is(CustomRoles.Sheriff))
                     {
                         PlayerState.SetDeathReason(killer.PlayerId, PlayerState.DeathReason.Misfire);
-                        killer.RpcMurderPlayer(killer);
+                        target.RpcMurderPlayer(killer);
+                        target.KillFlash();
                         /*if (MisfireKillsTarget.GetBool())
                             killer.RpcMurderPlayer(target);*/
                         return false;

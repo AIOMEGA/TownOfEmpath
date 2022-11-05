@@ -71,8 +71,9 @@ namespace TownOfEmpath
                 && systemType == SystemTypes.Comms //システムタイプが通信室
                 && amount is 0 or 16 or 17)
                 return false;
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.CorruptSheriff) || player.Is(CustomRoles.Arsonist) || (player.Is(CustomRoles.Jackal) && !Options.JackalCanUseSabotage.GetBool()
-                /*|| (player.Is(CustomRoles.Outlaw) && !Options.OutlawCanUseSabotage.GetBool())*/))
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.CorruptSheriff) || player.Is(CustomRoles.Outlaw) || player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Opportunist) ||
+                player.Is(CustomRoles.Arsonist) || (player.Is(CustomRoles.Jackal) && !Options.JackalCanUseSabotage.GetBool()
+                ))
             {
                 if (systemType == SystemTypes.Sabotage && AmongUsClient.Instance.GameMode != GameModes.FreePlay) return false; //シェリフにサボタージュをさせない ただしフリープレイは例外
             }

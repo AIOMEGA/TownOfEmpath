@@ -88,11 +88,11 @@ namespace TownOfEmpath
                     BountyHunter.GetAbilityButtonText(__instance);
                     break;
                 case CustomRoles.Jester:
-                    TownOfEmpath.Logger.Info(player.GetRoleName + " Jester Hud Fix3", "");
+                    //TownOfEmpath.Logger.Info(player.GetRoleName + " Jester Hud Fix3", "");
                     __instance.KillButton.OverrideText($"{GetString("JesterKillButtonText")}");
                     if (!Outlaw.PostTransformCanVent.GetBool())
                     {
-                        __instance.KillButton.OverrideText($"{GetString("JesterVentButtonText")}");
+                        __instance.ImpostorVentButton.OverrideText($"{GetString("JesterVentButtonText")}");
                     }
                     break;
             }
@@ -155,7 +155,7 @@ namespace TownOfEmpath
             {
                 case CustomRoles.Madmate:
                 case CustomRoles.Jester:
-                    TownOfEmpath.Logger.Info(player.GetRoleName + "Jester Hud Fix2", "");
+                    //TownOfEmpath.Logger.Info(player.GetRoleName + "Jester Hud Fix2", "");
                     TaskTextPrefix += FakeTasksText;
                     player.Data.Role.CanUseKillButton = false;
                     __instance.KillButton.SetDisabled();
@@ -182,19 +182,19 @@ namespace TownOfEmpath
                     __instance.KillButton.ToggleVisible(false);
                     break;
                 case CustomRoles.Sheriff:
-                    if (Sheriff.ShotLimit.TryGetValue(player.PlayerId, out var count) && count == 0)
+                    /*if (Sheriff.ShotLimit.TryGetValue(player.PlayerId, out var count) && count == 0)
                     {
                         __instance.KillButton.SetDisabled();
                         __instance.KillButton.ToggleVisible(false);
-                    }
+                    }*/
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
                 case CustomRoles.CorruptSheriff:
-                    if (CorruptSheriff.ShotLimit.TryGetValue(player.PlayerId, out var ccount) && ccount == 0)
+                    /*if (CorruptSheriff.ShotLimit.TryGetValue(player.PlayerId, out var ccount) && ccount == 0)
                     {
                         __instance.KillButton.SetDisabled();
                         __instance.KillButton.ToggleVisible(false);
-                    }
+                    }*/
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
                 case CustomRoles.Arsonist:
@@ -311,12 +311,12 @@ namespace TownOfEmpath
                 case CustomRoles.Outlaw:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(isActive && Outlaw.OutlawCanKill.GetBool() && !player.Data.IsDead);
-                    __instance.SabotageButton.ToggleVisible(isActive && Outlaw.OutlawCanUseSabotage.GetBool());
+                    __instance.SabotageButton.ToggleVisible(false);
                     __instance.ImpostorVentButton.ToggleVisible(isActive && Outlaw.OutlawCanVent.GetBool());
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
                 case CustomRoles.Jester:
-                    TownOfEmpath.Logger.Info(player.GetRoleName + "Jester Post Hud Fix1", "");
+                    //TownOfEmpath.Logger.Info(player.GetRoleName + "Jester Post Hud Fix1", "");
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(false);
                     __instance.SabotageButton.ToggleVisible(false);

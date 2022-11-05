@@ -101,7 +101,7 @@ namespace TownOfEmpath
                 //CorruptSheriff
                 if (pc.Is(CustomRoles.CorruptSheriff) && !pc.Data.IsDead && CustomWinnerHolder.WinnerTeam != CustomWinner.Draw && CustomWinnerHolder.WinnerTeam != CustomWinner.Terrorist && CustomWinnerHolder.WinnerTeam == CustomWinner.Impostor)
                 {
-                    winner.Add(pc);
+                    //winner.Add(pc);
                     CustomWinnerHolder.AdditionalWinnerTeams.Add(AdditionalWinners.CorruptSheriff);
                 }
                 //SchrodingerCat

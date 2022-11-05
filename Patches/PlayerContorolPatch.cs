@@ -304,13 +304,13 @@ namespace TownOfEmpath
 
                     //==========クルー役職==========//
                     case CustomRoles.Sheriff:
-                        Sheriff.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
+                        //Sheriff.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
                         Sheriff.OnCheckMurder(killer, target, Process: "Shot Outlaw");
                         if (!Sheriff.OnCheckMurder(killer, target, Process: "Suicide"))
                             return false;
                         break;
                     case CustomRoles.CorruptSheriff:
-                        CorruptSheriff.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
+                        //CorruptSheriff.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
                         if (!CorruptSheriff.OnCheckMurder(killer, target, Process: "Suicide"))
                             return false;
                         break;
@@ -361,7 +361,7 @@ namespace TownOfEmpath
             }
 
             //When Bait is killed
-            if (target.GetCustomRole() == CustomRoles.Bait && killer.PlayerId != target.PlayerId)
+            if (target.GetCustomRole() == CustomRoles.Bait && killer.PlayerId != target.PlayerId && !killer.Is(CustomRoles.CorruptSheriff))
             {
                 Logger.Info(target?.Data?.PlayerName + "はBaitだった", "MurderPlayer");
                 new LateTask(() => killer.CmdReportDeadBody(target.Data), 0.15f, "Bait Self Report");
@@ -373,7 +373,7 @@ namespace TownOfEmpath
                 Logger.Info(target?.Data?.PlayerName + "はTerroristだった", "MurderPlayer");
                 Utils.CheckTerroristWin(target.Data);
             }
-            if (target.Is(CustomRoles.Trapper) && !killer.Is(CustomRoles.Trapper))
+            if (target.Is(CustomRoles.Trapper) && !killer.Is(CustomRoles.Trapper) && !killer.Is(CustomRoles.CorruptSheriff))
                 killer.TrapperKilled(target);
             if (Executioner.Target.ContainsValue(target.PlayerId))
                 Executioner.ChangeRoleByTarget(target);
@@ -1164,14 +1164,14 @@ namespace TownOfEmpath
                     }, 0.5f, "Fix DesyncImpostor Stuck");
                     return false;
                 }*/
-                if (__instance.myPlayer.Is(CustomRoles.Sheriff) || __instance.myPlayer.Is(CustomRoles.Jester) || __instance.myPlayer.Is(CustomRoles.Opportunist) ||
+                if (__instance.myPlayer.Is(CustomRoles.Sheriff) || __instance.myPlayer.Is(CustomRoles.Opportunist) ||
                     __instance.myPlayer.Is(CustomRoles.CorruptSheriff) ||
                 __instance.myPlayer.Is(CustomRoles.SKMadmate) ||
                 __instance.myPlayer.Is(CustomRoles.Arsonist) ||
                 (__instance.myPlayer.Is(CustomRoles.Mayor) && Main.MayorUsedButtonCount.TryGetValue(__instance.myPlayer.PlayerId, out var count) && count >= Options.MayorNumOfUseButton.GetInt()) ||
                 (__instance.myPlayer.Is(CustomRoles.Jackal) && !Options.JackalCanVent.GetBool() ||
                 (__instance.myPlayer.Is(CustomRoles.Outlaw) && !Outlaw.OutlawCanVent.GetBool()) ||
-                __instance.myPlayer.Is(CustomRoles.Jester)
+                (__instance.myPlayer.Is(CustomRoles.Jester) && !Outlaw.PostTransformCanVent.GetBool())
                 ))
                 {
                     MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(__instance.NetId, (byte)RpcCalls.BootFromVent, SendOption.Reliable, -1);

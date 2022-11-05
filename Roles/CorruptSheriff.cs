@@ -7,10 +7,10 @@ namespace TownOfEmpath
 {
     public static class CorruptSheriff
     {
-        private static readonly int Id = 20400;
+        private static readonly int Id = 60100;
         public static List<byte> playerIdList = new();
 
-        private static CustomOption KillCooldown;
+        public static CustomOption KillCooldown;
         private static CustomOption MisfireKillsTarget;
         private static CustomOption ShotLimitOpt;
         public static CustomOption CanKillMadmates;
@@ -29,7 +29,7 @@ namespace TownOfEmpath
         public static Dictionary<byte, float> CurrentKillCooldown = new();
         public static readonly string[] KillOption =
         {
-            "SheriffCanKillAll", "SheriffCanKillSeparately"
+            "CSheriffCantKillAll", "SheriffCanKillSeparately"
         };
         public static Dictionary<string, string> CSheriffCanKillRole(CustomRoles role)
         {
@@ -42,9 +42,9 @@ namespace TownOfEmpath
         public static void SetupCustomOption()
         {
             Options.SetupSingleRoleOptions(Id, TabGroup.NeutralRoles, CustomRoles.CorruptSheriff, 1);
-            KillCooldown = CustomOption.Create(Id + 10, TabGroup.NeutralRoles, Color.white, "KillCooldown", 30, 0, 990, 1, Options.CustomRoleSpawnChances[CustomRoles.CorruptSheriff]);
+            KillCooldown = CustomOption.Create(Id + 10, TabGroup.NeutralRoles, Color.white, "KillCooldown", 15, 5, 990, 2.5f, Options.CustomRoleSpawnChances[CustomRoles.CorruptSheriff]);
             MisfireKillsTarget = CustomOption.Create(Id + 11, TabGroup.NeutralRoles, Color.white, "CSheriffMisfireKillsTarget", false, Options.CustomRoleSpawnChances[CustomRoles.CorruptSheriff]);
-            ShotLimitOpt = CustomOption.Create(Id + 12, TabGroup.NeutralRoles, Color.white, "CSheriffShotLimit", 15, 1, 15, 1, Options.CustomRoleSpawnChances[CustomRoles.CorruptSheriff]);
+            //ShotLimitOpt = CustomOption.Create(Id + 12, TabGroup.NeutralRoles, Color.white, "CSheriffShotLimit", 15, 1, 15, 1, Options.CustomRoleSpawnChances[CustomRoles.CorruptSheriff]);
             CanKillNeutrals = CustomOption.Create(Id + 14, TabGroup.NeutralRoles, Color.white, "CSheriffCanKillNeutrals", KillOption, KillOption[1], Options.CustomRoleSpawnChances[CustomRoles.CorruptSheriff]);
             CanKillJester = CustomOption.Create(Id + 15, TabGroup.NeutralRoles, Color.white, "CSheriffCanKill%role%", false, CanKillNeutrals, replacementDic: CSheriffCanKillRole(CustomRoles.Jester));
             CanKillTerrorist = CustomOption.Create(Id + 16, TabGroup.NeutralRoles, Color.white, "CSheriffCanKill%role%", false, CanKillNeutrals, replacementDic: CSheriffCanKillRole(CustomRoles.Terrorist));
@@ -59,7 +59,7 @@ namespace TownOfEmpath
         public static void Init()
         {
             playerIdList = new();
-            ShotLimit = new();
+            //ShotLimit = new();
             CurrentKillCooldown = new();
         }
         public static void Add(byte playerId)
@@ -70,11 +70,11 @@ namespace TownOfEmpath
             if (!Main.ResetCamPlayerList.Contains(playerId))
                 Main.ResetCamPlayerList.Add(playerId);
 
-            ShotLimit.TryAdd(playerId, ShotLimitOpt.GetFloat());
-            Logger.Info($"{Utils.GetPlayerById(playerId)?.GetNameWithRole()} : 残り{ShotLimit[playerId]}発", "CorruptSheriff");
+            //ShotLimit.TryAdd(playerId, ShotLimitOpt.GetFloat());
+            //Logger.Info($"{Utils.GetPlayerById(playerId)?.GetNameWithRole()} : 残り{ShotLimit[playerId]}発", "CorruptSheriff");
         }
         public static bool IsEnable => playerIdList.Count > 0;
-        private static void SendRPC(byte playerId)
+        /*private static void SendRPC(byte playerId)
         {
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetCSheriffShotLimit, SendOption.Reliable, -1);
             writer.Write(playerId);
@@ -89,32 +89,32 @@ namespace TownOfEmpath
                 ShotLimit[SheriffId] = Limit;
             else
                 ShotLimit.Add(SheriffId, ShotLimitOpt.GetFloat());
-        }
+        }*/
         public static void SetKillCooldown(byte id) => Main.AllPlayerKillCooldown[id] = CurrentKillCooldown[id];
         public static bool CanUseKillButton(PlayerControl player)
         {
             if (player.Data.IsDead)
                 return false;
 
-            if (ShotLimit[player.PlayerId] == 0)
+            /*if (ShotLimit[player.PlayerId] == 0)
             {
                 //Logger.info($"{player.GetNameWithRole()} はキル可能回数に達したため、RoleTypeを守護天使に変更しました。", "Sheriff");
                 //player.RpcSetRoleDesync(RoleTypes.GuardianAngel);
                 //Utils.hasTasks(player.Data, false);
                 //Utils.NotifyRoles();
                 return false;
-            }
+            }*/
             return true;
         }
         public static bool OnCheckMurder(PlayerControl killer, PlayerControl target, string Process)
         {
             switch (Process)
             {
-                case "RemoveShotLimit":
+                /*case "RemoveShotLimit":
                     ShotLimit[killer.PlayerId]--;
                     Logger.Info($"{killer.GetNameWithRole()} : 残り{ShotLimit[killer.PlayerId]}発", "CorruptSheriff");
                     SendRPC(killer.PlayerId);
-                    break;
+                    break;*/
                 case "Suicide":
                     if (!target.CanBeKilledByCorruptSheriff())
                     {
@@ -128,11 +128,11 @@ namespace TownOfEmpath
             }
             return true;
         }
-        public static string GetShotLimit(byte playerId) => Helpers.ColorString(Color.yellow, ShotLimit.TryGetValue(playerId, out var shotLimit) ? $"({shotLimit})" : "Invalid");
+        //public static string GetShotLimit(byte playerId) => Helpers.ColorString(Color.yellow, ShotLimit.TryGetValue(playerId, out var shotLimit) ? $"({shotLimit})" : "Invalid");
         public static bool CanBeKilledByCorruptSheriff(this PlayerControl player)
         {
             var cRole = player.GetCustomRole();
-            if (CanKillNeutrals.GetSelection() == 0 && cRole.IsNeutral()) return true;
+            if (CanKillNeutrals.GetSelection() == 0 && cRole.IsNeutral()) return false;
             return cRole switch
             {
                 CustomRoles.Jester => CanKillJester.GetBool(),

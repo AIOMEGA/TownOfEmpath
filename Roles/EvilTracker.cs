@@ -104,6 +104,7 @@ namespace TownOfEmpath
                 switch (deathReason) //死因での判別
                 {
                     case PlayerState.DeathReason.Bite:
+                    case PlayerState.DeathReason.Shot:
                     case PlayerState.DeathReason.Sniped:
                     case PlayerState.DeathReason.Bombed:
                         return true;

@@ -139,12 +139,12 @@ namespace TownOfEmpath
                     bool KoS = reader.ReadBoolean();
                     Main.KillOrSpell[playerId] = KoS;
                     break;
-                case CustomRPC.SetSheriffShotLimit:
+                /*case CustomRPC.SetSheriffShotLimit:
                     Sheriff.ReceiveRPC(reader);
                     break;
                 case CustomRPC.SetCSheriffShotLimit:
                     CorruptSheriff.ReceiveRPC(reader);
-                    break;
+                    break;*/
                 case CustomRPC.SetTimeThiefKillCount:
                     TimeThief.ReceiveRPC(reader);
                     break;

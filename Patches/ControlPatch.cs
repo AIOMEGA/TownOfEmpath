@@ -228,6 +228,7 @@ namespace TownOfEmpath
         {
             if (player.GetButtonDown(8) && // 8:キルボタンのactionId
             PlayerControl.LocalPlayer.Data?.Role?.IsImpostor == false &&
+            (PlayerControl.LocalPlayer.GetCustomRole() != CustomRoles.Jester) &&
             (PlayerControl.LocalPlayer.GetCustomRole() is CustomRoles.Sheriff or CustomRoles.CorruptSheriff or CustomRoles.Arsonist or CustomRoles.Jackal or CustomRoles.Outlaw) && PlayerControl.LocalPlayer.Data.Role.Role != RoleTypes.GuardianAngel)
             {
                 DestroyableSingleton<HudManager>.Instance.KillButton.DoClick();
@@ -236,6 +237,7 @@ namespace TownOfEmpath
             PlayerControl.LocalPlayer.Data?.Role?.IsImpostor == false &&
             (PlayerControl.LocalPlayer.Is(CustomRoles.Arsonist) ||
             (PlayerControl.LocalPlayer.Is(CustomRoles.Jackal) && Options.JackalCanVent.GetBool()) ||
+            (PlayerControl.LocalPlayer.Is(CustomRoles.Jester) && Outlaw.PostTransformCanVent.GetBool()) ||
             (PlayerControl.LocalPlayer.Is(CustomRoles.Outlaw) && Outlaw.OutlawCanVent.GetBool())
             ) && PlayerControl.LocalPlayer.Data.Role.Role != RoleTypes.GuardianAngel)
             {

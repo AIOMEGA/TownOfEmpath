@@ -180,6 +180,7 @@ namespace TownOfEmpath
                     var snipedTarget = dot_list.OrderBy(c => c.Value).First().Key;
                     snipeTarget[pc.PlayerId] = snipedTarget.PlayerId;
                     PlayerState.SetDeathReason(snipedTarget.PlayerId, PlayerState.DeathReason.Sniped);
+                    PlayerState.SetDeathReason(snipedTarget.PlayerId, PlayerState.DeathReason.Sniped);
                     snipedTarget.CheckMurder(snipedTarget);
                     //キル出来た通知
                     pc.RpcGuardAndKill();

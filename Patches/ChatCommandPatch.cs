@@ -50,29 +50,52 @@ namespace TownOfEmpath
                     break;
             }
             //A if statement that allows the command to work for any player needs to be added here.
-            /*foreach(var pc in PlayerControl.AllPlayerControls)
+            foreach(var pc in PlayerControl.AllPlayerControls)
             {
                 if (pc != AmongUsClient.Instance.AmHost)
                 {
-                    Main.isChatCommand = true;
-                    switch (args[0])
+                    if (!pc.IsModClient())
                     {
-                        case "/msg":
-                        case "/dm":
-                        case "/Dm":
-                        case "/DM":
-                        case "/pv":
-                        case "/Pv":
-                        case "/PV":
-                            canceled = true;
-                            Utils.DM(text);
-                            break;
-                        default:
-                            Main.isChatCommand = false;
-                            break;
+                        Main.isChatCommand = true;
+                        switch (args[0])
+                        {
+                            case "/msg":
+                            case "/dm":
+                            case "/Dm":
+                            case "/DM":
+                            case "/pv":
+                            case "/Pv":
+                            case "/PV":
+                                canceled = true;
+                                Utils.DM(text);
+                                break;
+                            default:
+                                Main.isChatCommand = false;
+                                break;
+                        }
+                        if(pc.IsModClient())
+                        {
+                            Main.isChatCommand = true;
+                            switch (args[0])
+                            {
+                                case "/msg":
+                                case "/dm":
+                                case "/Dm":
+                                case "/DM":
+                                case "/pv":
+                                case "/Pv":
+                                case "/PV":
+                                    canceled = true;
+                                    Utils.DM(text);
+                                    break;
+                                default:
+                                    Main.isChatCommand = false;
+                                    break;
+                            }
+                        }
                     }
                 }
-            }*/
+            }
             if (AmongUsClient.Instance.AmHost)
             {
                 Main.isChatCommand = true;

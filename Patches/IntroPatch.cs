@@ -195,7 +195,7 @@ namespace TownOfEmpath
             {
                 __instance.TeamTitle.text = "Discord Server";
                 __instance.ImpostorText.gameObject.SetActive(true);
-                __instance.ImpostorText.text = "https://discord.gg/cPatHkMj";
+                __instance.ImpostorText.text = "https://discord.gg/HH3MbXJyw2";
                 __instance.TeamTitle.color = Color.magenta;
                 StartFadeIntro(__instance, Color.magenta, Color.magenta);
             }

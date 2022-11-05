@@ -196,8 +196,7 @@ namespace TownOfEmpath
             return (RoleText, GetRoleColor(cRole));
         }
 
-        public static string GetVitalText(byte player) =>
-            PlayerState.isDead[player] ? GetString("DeathReason." + PlayerState.GetDeathReason(player)) : GetString("Alive");
+        public static string GetVitalText(byte player) => PlayerState.isDead[player] ? GetString("DeathReason." + PlayerState.GetDeathReason(player)) : GetString("Alive");
         public static (string, Color) GetRoleTextHideAndSeek(RoleTypes oRole, CustomRoles hRole)
         {
             string text = "Invalid";
@@ -322,12 +321,12 @@ namespace TownOfEmpath
                     var doused = GetDousedPlayerCount(playerId);
                     ProgressText = Helpers.ColorString(GetRoleColor(CustomRoles.Arsonist), $"({doused.Item1}/{doused.Item2})");
                     break;
-                case CustomRoles.Sheriff:
+                /*case CustomRoles.Sheriff:
                     ProgressText += Sheriff.GetShotLimit(playerId);
                     break;
                 case CustomRoles.CorruptSheriff:
                     ProgressText += CorruptSheriff.GetShotLimit(playerId);
-                    break;
+                    break;*/
                 case CustomRoles.Sniper:
                     ProgressText += $" {Sniper.GetBulletCount(playerId)}";
                     break;
@@ -567,9 +566,9 @@ namespace TownOfEmpath
             PlayerControl target = Target(name);
             if(target == null)
             {
-                HudManager.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "Sorry the specified player couldn't be found.\nDo /dm (name: case sensitive) (message)");
+                HudManager.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "Sorry the specified player couldn't be found.\nDo /dm (COLOR(all uppercase): Ex: ROSE) (message)");
             }
-            string combine = "Whispers to you~ " + "'" + message + "'";
+            string combine = GetString("Message.DM") + "'" + message + "'";
             //HudManager.Instance.Chat.AddChatWarning(combine);
             //HudManager.Instance.Chat.AddChat((PlayerControl)source, combine);
             //HudManager.Instance.Chat.AddChat(target, target.ToString() + " " + combine);
@@ -578,18 +577,10 @@ namespace TownOfEmpath
         }
         public static PlayerControl Target(string name)
         {
-            //string match;
-            /*foreach (var id in PlayerControl.AllPlayerControls)
-            {
-                if (id.Data.PlayerName == name)
-                {
-                    return PlayerControl.AllPlayerControls.ToArray().OrderBy(x => x.PlayerId).Where(x => !x.Data.IsDead).FirstOrDefault();
-                }
-            }*/
-
             foreach(var pc in PlayerControl.AllPlayerControls)
             {
-                if(pc.Data.PlayerName == name)
+                Logger.Info(Palette.GetColorName(pc.Data.DefaultOutfit.ColorId), "");
+                if (pc.Data.PlayerName == name || Palette.GetColorName(pc.Data.DefaultOutfit.ColorId) == name)
                 {
                     return pc;
                 }

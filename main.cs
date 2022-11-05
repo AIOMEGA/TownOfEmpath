@@ -28,8 +28,8 @@ namespace TownOfEmpath
         public static readonly string ForkId = "TOHTOE";
         // Discordボタンを表示するか / Show Discord Button (Default: true)
         public static readonly bool ShowDiscordButton = true;
-        // Discordサーバーの招待リンク / Discord Server Invite URL (Default: https://discord.gg/W5ug6hXB9V)
-        public static readonly string DiscordInviteUrl = "https://discord.gg/W5ug6hXB9V";
+        // Discordサーバーの招待リンク / Discord Server Invite URL (Default: https://discord.gg/AMm8AfRSHf)
+        public static readonly string DiscordInviteUrl = "https://discord.gg/AMm8AfRSHf";
         // ==========
         public const string OriginalForkId = "OriginalTOH"; // Don't Change The Value. / この値を変更しないでください。
         //Sorry for many Japanese comments.
@@ -206,6 +206,7 @@ namespace TownOfEmpath
                     //Neutral
                     {CustomRoles.ShellRole, "ffffff"},
                     {CustomRoles.Outlaw, "#F44C19"},
+                    {CustomRoles.CorruptSheriff, "#ff0000"},
                     {CustomRoles.Arsonist, "#ff6633"},
                     {CustomRoles.Jester, "#ec62a5"},
                     {CustomRoles.Terrorist, "#00ff00"},

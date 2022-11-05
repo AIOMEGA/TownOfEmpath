@@ -37,7 +37,7 @@ namespace TownOfEmpath
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
             }
         }
-        /*public static void RpcResetRole(this PlayerControl player)
+        public static void RpcResetRole(this PlayerControl player)
         {
             CustomRoles role = CustomRoles.Crewmate;
             if (AmongUsClient.Instance.AmHost)
@@ -47,7 +47,7 @@ namespace TownOfEmpath
                 writer.WritePacked((int)role);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
             }
-        }*/
+        }
         public static void SetCustomRole(this PlayerControl player, CustomRoles role)
         {
             Main.AllPlayerCustomRoles[player.PlayerId] = role;
@@ -645,10 +645,10 @@ namespace TownOfEmpath
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.JackalKillCooldown.GetFloat();
                     break;
                 case CustomRoles.Sheriff:
-                    Sheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Sheriff.KillCooldown.GetFloat();
                     break;
                 case CustomRoles.CorruptSheriff:
-                    CorruptSheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    Main.AllPlayerKillCooldown[player.PlayerId] = CorruptSheriff.KillCooldown.GetFloat();
                     break;
                 case CustomRoles.Outlaw:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Outlaw.OutlawKillCooldown.GetFloat();
