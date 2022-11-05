@@ -4,16 +4,20 @@
 
 This mod is not affiliated with Among Us or Innersloth LLC, Town Of Host, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
 
-This mod is a fork of TOH, I plan on adding ATLEAST 15 of my own unique roles, but I also plan on adding other roles from TOR and other TOH related mods.
+This mod is a fork of Town Of Host, I plan on adding ATLEAST 15 of my own unique roles, but I also plan to hopefully add other roles from TOR and other TOH related mods.
 
-I sometimes host this mod myself on Public Lobbies under EmpathTOE. I constantly update this mod and test it with randoms.
+Note that any player that doesn't have the mod installed will see roles such as Sheriff as an impostor role and will be able to see abilities such as sabotage and vent, even when they aren't able to use them.
+
+I sometimes host this mod myself on Public Lobbies under the name Empath. I constantly update this mod and test it with people in my Discord.
 
 DISCORD SERVER: https://discord.gg/AMm8AfRSHf --- Recommended after Innersloth introduced randomized lobby names
 
+WARNED BUGS: If someone leaves as the game is starting players can blackscreen. If this happens the host can press shift+L+enter to end the game
+
 ## Releases
 
-AmongUs Version: **2022.9.20**
-**Latest Version: (not added yet)
+AmongUs Version: **2022.10.25**
+**Latest Version: https://github.com/AIOMEGA/TownOfEmpath/releases/latest
 
 ## Features
 
@@ -567,8 +571,7 @@ Killing Crewmates will result in suicide. <br>
 | Name                                                                |
 | ------------------------------------------------------------------- |
 | Kill Cooldown                                                       |
-| Sheriff Can Kill Crewmates As It                                    |
-| Sheriff Shot Limit                                                  |
+| Misfire Kills Target                                                |
 | Sheriff Can Kill Madmates                                           |
 | Sheriff Can Kill Neutrals                                           |
 | ┣ Sheriff Can Kill [Jester](#Jester)                                |
@@ -644,23 +647,62 @@ The time held in place on the body is decided by host in settings.<br>
 ### Outlaw **(New!)**
 
 Team : Neutral(solo)<br>
-Basis : Crewmate<br>
+Basis : Impostor<br>
 Count : Outlaw<br>
 Victory Condition : Get killed by the Sheriff<br>
 Created by AIOMEGA<br>
 
 #### Description
 
-The Outlaw is part of it's own team that tries to bait the Sheriff into killing them.<br>
-(If host has allowed): Outlaw can have an enabled kill button that only allows them to kill the Sheriff, turning them into either the Sheriff or **Not added yet** Corrupt Sheriff (Chosen in the Game Options by host)<br>
+Outlaw wants to bait the Sheriff into shooting them to win.<br>
+If enabled the Outlaw can kill, but only the Sheriff. Killing the Sheriff will either turn the Outlaw into Sheriff or CorruptSheriff.<br>
+If Sheriff is exiled or killed by someone else, then Outlaw can become Jest/Opp.<br>
 
 #### Game Options
-| Name                |
-| -----------------   |
-| Can Vent            |
-| Can Sabotage        |
-| Has Impostor Vision |
+| Name                                   |
+| -------------------------------------- |
+| Can Vent                               |
+| Has Impostor Vision                    |
+| Can Kill                               |
+| Kill Cooldown                          |
+| Role transformed after Sheriff dies    |
+| ┣ [Jester](#Jester)                    |
+| ┣ [Opportunist](#Terrorist)            |
+| Can Vent after Transforming            |
+| Role transformed after killing Sheriff |
+| ┣ [CorruptSheriff](#CorruptSheriff)    |
+| ┣ [Sheriff](#Sheriff)                  |
 
+### CorruptSheriff **(New!)**
+
+Team : Neutral(solo)<br>
+Basis : Impostor<br>
+Count : Impostor<br>
+Victory Condition : Win with the Impostors<br>
+Created by AIOMEGA<br>
+
+#### Description
+
+Only obtainable from killing Sheriff as Outlaw.<br>
+CorruptSheriff can kill any crew even bait and trapper without setting off the abilities.<br>
+Killing impostors or neutrals(toggleable), makes the CorruptSheriff misfire.<br>
+
+#### Game Options
+| Name                                                                 |
+| -------------------------------------------------------------------- |
+| Kill Cooldown                                                        |
+| Misfire Kills Target                                                 |
+| CorruptSheriff Can Kill Madmates                                     |
+| CorruptSheriff Can Kill Neutrals(off by default)                     |
+| ┣ CSheriff Can Kill [Jester](#Jester)                                |
+| ┣ CSheriff Can Kill [Terrorist](#Terrorist)                          |
+| ┣ CSheriff Can Kill [Opportunist](#Opportunist)                      |
+| ┣ CSheriff Can Kill [Arsonist](#Arsonist)                            |
+| ┣ CSheriff Can Kill [Egoist](#Egoist)                                |
+| ┣ CSheriff Can Kill [SchrodingerCat](#SchrodingerCat) In Team Egoist |
+| ┣ CSheriff Can Kill [Executioner](#Executioner)                      |
+| ┣ CSheriff Can Kill [Jackal](#Jackal)                                |
+| ┗ CSheriff Can Kill [SchrodingerCat](#SchrodingerCat) In Team Jackal |
 
 #### Game Options
 
