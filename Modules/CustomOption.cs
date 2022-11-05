@@ -231,14 +231,7 @@ namespace TownOfEmpath
         }
         public int GetChance() //control the chance of a role spawning
         {
-            //0%or100%の場合
-            if (Selections.Length == 2) return Selection * 100;
-
-            //0%～100%or5%～100%の場合
-            var offset = 12 - Selections.Length;
-            var index = Selection + offset;
-            var rate = index <= 1 ? index * 5 : (index - 1) * 10;
-            return rate;
+            return Selection * 100 / (Selections.Length - 1);
         }
 
         public string GetString()

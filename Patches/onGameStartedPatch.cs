@@ -431,6 +431,9 @@ namespace TownOfEmpath
                 //ここからDesyncが始まる
                 if (player.PlayerId != 0)
                 {
+                    if (role.GetChance() > rand.NextDouble())
+                        continue;
+
                     int playerCID = player.GetClientId();
                     sender.RpcSetRole(player, BaseRole, playerCID);
                     //Desyncする人視点で他プレイヤーを科学者にするループ
@@ -463,6 +466,9 @@ namespace TownOfEmpath
             SetColorPatch.IsAntiGlitchDisabled = true;
             for (var i = 0; i < count; i++)
             {
+                if (role.GetChance() > rand.NextDouble())
+                    continue;
+
                 var player = players[rand.Next(0, players.Count)];
                 AssignedPlayers.Add(player);
                 players.Remove(player);

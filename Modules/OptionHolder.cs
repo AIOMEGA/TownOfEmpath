@@ -48,15 +48,9 @@ namespace TownOfEmpath
         public static Dictionary<CustomRoles, CustomOption> CustomRoleSpawnChances;
         public static readonly string[] rates =
         {
-            "Rate0",  "Rate5",  "Rate10", "Rate20", "Rate30", "Rate40",
+            "Rate0", "Rate10", "Rate20", "Rate30", "Rate40",
             "Rate50", "Rate60", "Rate70", "Rate80", "Rate90", "Rate100",
         };
-        public static readonly string[] ratesZeroOne =
-        {
-            "Rate0", /*"Rate10", "Rate20", "Rate30", "Rate40", "Rate50",
-            "Rate60", "Rate70", "Rate80", "Rate90",*/ "Rate100",
-        };
-
         // 各役職の詳細設定
         public static CustomOption EnableGM;
         public static CustomOption EnableLastImpostor;
@@ -273,7 +267,7 @@ namespace TownOfEmpath
 
         public static float GetRoleChance(CustomRoles role)
         {
-            return CustomRoleSpawnChances.TryGetValue(role, out var option) ? option.GetSelection()/* / 10f */ : roleSpawnChances[role];
+            return CustomRoleSpawnChances.TryGetValue(role, out var option) ? option.GetSelection() / 10f  : roleSpawnChances[role];
         }
         public static void Load()
         {
@@ -580,7 +574,7 @@ namespace TownOfEmpath
         private static void SetupLoversRoleOptionsToggle(int id, CustomGameMode customGameMode = CustomGameMode.Standard)
         {
             var role = CustomRoles.Lovers;
-            var spawnOption = CustomOption.Create(id, TabGroup.Modifier, Utils.GetRoleColor(role), role.ToString(), ratesZeroOne, ratesZeroOne[0], null, true)
+            var spawnOption = CustomOption.Create(id, TabGroup.Modifier, Utils.GetRoleColor(role), role.ToString(), rates, rates[0], null, true)
                 .HiddenOnDisplay(true)
                 .SetGameMode(customGameMode);
 
