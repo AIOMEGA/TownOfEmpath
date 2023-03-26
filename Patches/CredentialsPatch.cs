@@ -101,7 +101,7 @@ namespace TownOfHost
             tohLogo.transform.position = Vector3.up;
             tohLogo.transform.localScale *= 1.2f;
             var renderer = tohLogo.AddComponent<SpriteRenderer>();
-            renderer.sprite = Utils.LoadSprite("TownOfHost.Resources.TownOfHost-Logo.png", 300f);
+            renderer.sprite = Utils.LoadSprite("TownOfHost.Resources.TownOfEmpath-Logo.png", 300f);
         }
     }
     [HarmonyPatch(typeof(ModManager), nameof(ModManager.LateUpdate))]

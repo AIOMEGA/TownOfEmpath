@@ -370,6 +370,10 @@ namespace TownOfHost
                     pc.RpcDesyncRepairSystem(systemtypes, 17);
             }, FlashDuration + delay, "Fix Desync Reactor");
         }
+        public static void SendDM(this PlayerControl target, string text)
+        {
+            Utils.SendMessage(text, target.PlayerId);
+        }
 
         public static string GetRealName(this PlayerControl player, bool isMeeting = false)
         {

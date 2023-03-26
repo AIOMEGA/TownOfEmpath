@@ -619,6 +619,45 @@ namespace TownOfHost
             if (title == "") title = "<color=#aaaaff>" + GetString("DefaultSystemMessageTitle") + "</color>";
             Main.MessagesToSend.Add((text.RemoveHtmlTags(), sendTo, title));
         }
+        public static void DM(string text)
+        {
+            string holder = text;
+            string message = "";
+            string source = "";
+            int foundS1 = text.IndexOf(" ");
+            int foundS2 = text.IndexOf(" ", foundS1 + 1);
+
+            if (foundS1 != foundS2 && foundS1 >= 0)
+            {
+                text = text.Remove(0, foundS1 + 1);
+                text = text.Remove(foundS2 - foundS1 - 1, text.Length - foundS2 + foundS1 + 1);
+                message = holder.Remove(0, foundS2 + 1);
+            }
+            string name = text;
+            PlayerControl target = Target(name);
+            if (target == null)
+            {
+                HudManager.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "Sorry the specified player couldn't be found.\nDo /dm (COLOR(all uppercase): Ex: ROSE) (message)");
+            }
+            string combine = GetString("Message.DM") + "'" + message + "'";
+            //HudManager.Instance.Chat.AddChatWarning(combine);
+            //HudManager.Instance.Chat.AddChat((PlayerControl)source, combine);
+            //HudManager.Instance.Chat.AddChat(target, target.ToString() + " " + combine);
+            ExtendedPlayerControl.SendDM(target, combine);
+
+        }
+        public static PlayerControl Target(string name)
+        {
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                Logger.Info(Palette.GetColorName(pc.Data.DefaultOutfit.ColorId), "");
+                if (pc.Data.PlayerName == name || Palette.GetColorName(pc.Data.DefaultOutfit.ColorId) == name)
+                {
+                    return pc;
+                }
+            }
+            return null;
+        }
         public static void ApplySuffix()
         {
             if (!AmongUsClient.Instance.AmHost) return;
