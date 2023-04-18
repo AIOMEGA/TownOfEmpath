@@ -53,6 +53,16 @@ namespace TownOfHost
                 Main.isChatCommand = true;
                 switch (args[0])
                 {
+                    case "/msg":
+                    case "/dm":
+                    case "/Dm":
+                    case "/DM":
+                    case "/pv":
+                    case "/Pv":
+                    case "/PV":
+                        canceled = true;
+                        Utils.DM(text);
+                        break;
                     case "/win":
                     case "/winner":
                         canceled = true;
